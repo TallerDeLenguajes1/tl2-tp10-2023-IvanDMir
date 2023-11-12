@@ -1,12 +1,12 @@
 
-using models;
+using tl2_tp10_2023_IvanDMir.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Data.SQLite;
 
-namespace repositorios{
+namespace tl2_tp10_2023_IvanDMir.repositorios;
     public class UsuarioRepositorio{
         private string cadenaConexion = "Data Source=DB/Tareas.db;Cache=Shared";
 
@@ -92,4 +92,4 @@ namespace repositorios{
             return (usuarioBuscado);
         }
     }
-}
+

@@ -1,0 +1,22 @@
+@{ 
+    ViewData["Title"] = "Añadir Tablero";
+}
+
+@model Tablero
+
+<h1>@ViewData["Title"]</h1>
+<form asp-controller="Tablero" asp-action="Add">
+    <div class="form-group">
+        <label for="nombreDeTablero">Nombre de Tablero</label>
+        <input asp-for = "@Model.Nombre" class="form-control" id="nombreDeTablero" required>
+    </div>
+    <div class="form-group">
+        <label for="DescTablero">Descripcion de Tablero</label>
+        <input asp-for = "@Model.Descripcion" class="form-control" id="DescTablero" required>
+    </div>
+      <div class="form-group">
+        <label for="IdDueño">Ig del Dueño</label>
+        <input asp-for = "@Model.IdUsuarioPropietario" class="form-control" id="IdDueño">
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>

@@ -1,0 +1,23 @@
+
+@{
+    ViewData["Title"] = "Listado Usuarios";
+}
+
+@model List<Usuario>
+
+<table class="Tabla">
+    <thead >
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Nombre de Usuario</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(Usuario user in Model){
+            <tr>
+            <td> @user.id_usuario</td>
+            <td> @user.nombre_De_Usuario</td>
+            </tr>
+        }
+    </tbody>
+</table>

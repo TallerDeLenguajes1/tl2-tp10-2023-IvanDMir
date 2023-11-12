@@ -1,4 +1,4 @@
-namespace models;
+namespace tl2_tp10_2023_IvanDMir.Models;
 public enum Estados{
     ToDo,
     Doing,
@@ -10,7 +10,7 @@ public class Tarea{
     private int idTablero;
     private string nombre;
     private Estados estado;
-    private string? descripcion;
+    private string descripcion;
     private string color;
     private int idUsuarioAsignado;
 
@@ -38,7 +38,7 @@ public class Tarea{
         set { estado = value; }
     }
 
-    public string? Descripcion
+    public string Descripcion
     {
         get { return descripcion; }
         set { descripcion = value; }

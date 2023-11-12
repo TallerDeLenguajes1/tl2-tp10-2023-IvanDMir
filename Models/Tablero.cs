@@ -1,4 +1,4 @@
-namespace models;
+namespace tl2_tp10_2023_IvanDMir.Models;
  public class Tablero{
     private int id_tablero;
     private string nombre;

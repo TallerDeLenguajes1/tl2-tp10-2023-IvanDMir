@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\User\\Dropbox\\Facultad\\Tercer año Segundo cuatrimestre\\Taller 2\\Tp10\\tl2-tp10-2023-IvanDMir\\tl2-tp10-2023-IvanDMir.csproj": {}
+    "C:\\Users\\User\\Desktop\\Tp10Taller\\tl2-tp10-2023-IvanDMir\\tl2-tp10-2023-IvanDMir.csproj": {}
   },
   "projects": {
-    "C:\\Users\\User\\Dropbox\\Facultad\\Tercer año Segundo cuatrimestre\\Taller 2\\Tp10\\tl2-tp10-2023-IvanDMir\\tl2-tp10-2023-IvanDMir.csproj": {
+    "C:\\Users\\User\\Desktop\\Tp10Taller\\tl2-tp10-2023-IvanDMir\\tl2-tp10-2023-IvanDMir.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\User\\Dropbox\\Facultad\\Tercer año Segundo cuatrimestre\\Taller 2\\Tp10\\tl2-tp10-2023-IvanDMir\\tl2-tp10-2023-IvanDMir.csproj",
+        "projectUniqueName": "C:\\Users\\User\\Desktop\\Tp10Taller\\tl2-tp10-2023-IvanDMir\\tl2-tp10-2023-IvanDMir.csproj",
         "projectName": "tl2-tp10-2023-IvanDMir",
-        "projectPath": "C:\\Users\\User\\Dropbox\\Facultad\\Tercer año Segundo cuatrimestre\\Taller 2\\Tp10\\tl2-tp10-2023-IvanDMir\\tl2-tp10-2023-IvanDMir.csproj",
+        "projectPath": "C:\\Users\\User\\Desktop\\Tp10Taller\\tl2-tp10-2023-IvanDMir\\tl2-tp10-2023-IvanDMir.csproj",
         "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\User\\Dropbox\\Facultad\\Tercer año Segundo cuatrimestre\\Taller 2\\Tp10\\tl2-tp10-2023-IvanDMir\\obj\\",
+        "outputPath": "C:\\Users\\User\\Desktop\\Tp10Taller\\tl2-tp10-2023-IvanDMir\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -39,6 +39,12 @@
       "frameworks": {
         "net7.0": {
           "targetAlias": "net7.0",
+          "dependencies": {
+            "system.data.sqlite": {
+              "target": "Package",
+              "version": "[1.0.118, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",

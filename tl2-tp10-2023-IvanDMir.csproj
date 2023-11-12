@@ -2,9 +2,13 @@
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
-    <Nullable>enable</Nullable>
+    <Nullable>disable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <RootNamespace>tl2_tp10_2023_IvanDMir</RootNamespace>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="system.data.sqlite" Version="1.0.118" />
+  </ItemGroup>
 
 </Project>
