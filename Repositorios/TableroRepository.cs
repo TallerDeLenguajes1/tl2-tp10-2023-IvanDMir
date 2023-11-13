@@ -51,16 +51,16 @@ namespace tl2_tp10_2023_IvanDMir.repositorios;
         }
         }
          public void Update(int id, Tablero tablero) {
-            string queryText = "UPDATE Tablero SET (nombre) = @nombre, (descripcion) = @descripcion, (id_usuario_propietario) = @IdUsuarioPropietario " + 
-                                "WHERE id_Tablero = @id";
+            string queryText = "UPDATE Tablero SET (nombre) = @nombre, (descripcion) = @descripcion, (id_usuario_propietario) = @idUsuarioPropietario " + 
+                                "WHERE id_Tablero = 6";
             using(SQLiteConnection connection = new SQLiteConnection(cadenaConexion)) {
                 SQLiteCommand query = new SQLiteCommand(queryText, connection);
-                query.Parameters.Add(new SQLiteParameter("@id", tablero.IdTablero));
+                query.Parameters.Add(new SQLiteParameter("@id", id));
                 query.Parameters.Add(new SQLiteParameter("@nombre", tablero.Nombre));
                 query.Parameters.Add(new SQLiteParameter("@descripcion", tablero.Descripcion));
                 query.Parameters.Add(new SQLiteParameter("@idUsuarioPropietario", tablero.IdUsuarioPropietario));
                 connection.Open();
-                query.ExecuteNonQuery();
+                int rowsupdated = query.ExecuteNonQuery();
                 connection.Close();
             }
          }
@@ -107,7 +107,7 @@ namespace tl2_tp10_2023_IvanDMir.repositorios;
             return tableros;
         }
          public void Delete(int id) {
-            string queryText = "DELETE FROM Tablero WHERE id_Tablero = @id";
+            string queryText = "DELETE  FROM Tablero WHERE id_Tablero = @id";
             using(SQLiteConnection connection = new SQLiteConnection(cadenaConexion)) {
                 SQLiteCommand query = new SQLiteCommand(queryText, connection);
                 query.Parameters.Add(new SQLiteParameter("@id", id));

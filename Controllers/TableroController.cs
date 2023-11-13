@@ -43,4 +43,9 @@ public class TableroController : Controller
         
 
     }
+    [HttpGet]
+    public IActionResult Delete(int id){  
+        repo.Delete(id);
+      return RedirectToAction("Index");
+    }
 }
