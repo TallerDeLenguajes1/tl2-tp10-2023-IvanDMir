@@ -1,0 +1,40 @@
+@{
+    ViewData["Title"] = "List de Tareas";
+}
+
+@model List<Tarea>
+
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+        <th scope="col">Id</th>
+        <th scope="col">id del tablero </th>
+        <th scope="col">Nombre </th>
+        <th scope="col">Estado</th>
+        <th scope="col">Descripcion</th>
+        <th scope="col">Color</th>
+        <th scope="col">Usuario asignado</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(Tarea task in Model) {
+            <tr>
+                <td>@task.Id</td>
+                <td>@task.IdTablero</td>
+                <td>@task.Nombre</td>
+                <td>@task.Estado</td>
+                <td>@task.Descripcion</td>
+                <td>@task.Color</td>
+                <td>@task.IdUsuarioAsignado</td>
+                <td>
+                    <button class="btn btn-primary">
+                        <a asp-controller="Tarea" asp-action="Update" asp-route-id="@task.Id" class="badge badge-primary">Update</a>
+                    </button>
+                    <button class="btn btn-primary">
+                        <a asp-controller="Tarea" asp-action="Delete" asp-route-id="@task.Id" class="badge badge-primary">Delete</a>
+                    </button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
