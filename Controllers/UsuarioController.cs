@@ -43,14 +43,8 @@ public class UsuarioController : Controller
 
     }
    [HttpGet]
-   public IActionResult Delete(int id){
-        return View(repo.GetById(id));
-   }
-   
-    [HttpPost]
-    public IActionResult Delete(Usuario user)
-    {   
-        repo.eliminar(user.id_usuario);
+    public IActionResult Delete(int id){  
+        repo.eliminar(id);
       return RedirectToAction("Index");
     }
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

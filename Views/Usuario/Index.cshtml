@@ -4,12 +4,18 @@
 }
 
 @model List<Usuario>
+<head>
+    <link rel="stylesheet" href="ruta/a/tu/bootstrap.min.css">
+</head>
+<div class="container mt-4">
 
-<table class="Tabla">
-    <thead >
+<table class="table table-bordered table-striped">
+    <thead class="thead-dark">
         <tr>
             <th scope="col">Id</th>
             <th scope="col">Nombre de Usuario</th>
+            <th scope="col">Contrasena</th>
+            <th scope="col">Rol</th>
         </tr>
     </thead>
     <tbody>
@@ -17,7 +23,19 @@
             <tr>
             <td> @user.id_usuario</td>
             <td> @user.nombre_De_Usuario</td>
+            <td> @user.contrasena</td>
+            <td> @user.rol</td>
+             <td>
+                    <button class="btn btn-primary btn-sm">
+                        <a asp-controller="Usuario" asp-action="Update" asp-route-id="@user.id_usuario" class="badge badge-primary">Update</a>
+                    </button>
+                    <button class="btn btn-primary btn-sm">
+                        <a asp-controller="Usuario" asp-action="Delete" asp-route-id="@user.id_usuario" class="badge badge-primary">Delete</a>
+                    </button>
+                </td>
             </tr>
         }
     </tbody>
 </table>
+
+<script src="ruta/a/tu/bootstrap.min.js"></script>

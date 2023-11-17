@@ -26,6 +26,8 @@ namespace tl2_tp10_2023_IvanDMir.repositorios;
                         var Usuario = new Usuario();
                         Usuario.id_usuario = Convert.ToInt32(reader["id"]);
                         Usuario.nombre_De_Usuario = reader["nombre_de_usuario"].ToString();
+                        Usuario.contrasena = reader["contrasena"].ToString();
+                        Usuario.rol = reader["rol"].ToString();
                         Usuarios.Add(Usuario);
                     }
                 }
@@ -39,22 +41,24 @@ namespace tl2_tp10_2023_IvanDMir.repositorios;
         public void Modificar(int id, Usuario usuarioModificado){
             SQLiteConnection connection = new SQLiteConnection(cadenaConexion);
             SQLiteCommand command = connection.CreateCommand();
-            command.CommandText = "UPDATE usuario SET (nombre_de_usuario) = @nombre_de_usuario WHERE id = @Id";
+            command.CommandText = "UPDATE usuario SET (nombre_de_usuario) = @nombre_de_usuario, (contrasena) = @contrasena WHERE id = @Id";
             command.Parameters.Add(new SQLiteParameter("@nombre_de_usuario", usuarioModificado.nombre_De_Usuario));
             command.Parameters.Add(new SQLiteParameter("@Id", usuarioModificado.id_usuario));
+            command.Parameters.Add(new SQLiteParameter("@contrasena", usuarioModificado.contrasena));
             connection.Open();
             command.ExecuteNonQuery();
             connection.Close();       
         }
         public void Crear(Usuario usuarioCreado){
-         var query = $"INSERT INTO usuario (nombre_de_usuario) VALUES (@nombre_de_usuario)";
+         var query = $"INSERT INTO usuario (nombre_de_usuario,contrasena,rol) VALUES (@nombre_de_usuario,@contrasena,@rol)";
          using (SQLiteConnection connection = new SQLiteConnection(cadenaConexion)){
             connection.Open();
 
             var command = new SQLiteCommand(query, connection);
 
             command.Parameters.Add(new SQLiteParameter("@nombre_de_usuario", usuarioCreado.nombre_De_Usuario));
-
+            command.Parameters.Add(new SQLiteParameter("@contrasena", usuarioCreado.contrasena));
+            command.Parameters.Add(new SQLiteParameter("@rol", usuarioCreado.rol));
             command.ExecuteNonQuery();
             connection.Close();
          }
@@ -85,6 +89,8 @@ namespace tl2_tp10_2023_IvanDMir.repositorios;
                    
                         usuarioBuscado.id_usuario = Convert.ToInt32(reader["id"]);
                         usuarioBuscado.nombre_De_Usuario = reader["nombre_de_usuario"].ToString();
+                        usuarioBuscado.contrasena = reader["contrasena"].ToString();
+                        usuarioBuscado.rol = reader["rol"].ToString();
                 }
             }
             connection.Close();

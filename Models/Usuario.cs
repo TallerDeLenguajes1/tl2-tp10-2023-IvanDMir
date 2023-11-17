@@ -4,6 +4,8 @@ public class Usuario{
 
     private int Id_usuario;
     private string Nombre_De_Usuario;
+    private string Contrasena;
+    private string Rol;
 
      public int id_usuario
     {
@@ -14,6 +16,16 @@ public class Usuario{
     {
         get { return Nombre_De_Usuario; }
         set { Nombre_De_Usuario = value; }
+    }
+
+    public string contrasena {
+        get { return Contrasena; }
+        set { Contrasena = value; }
+
+    }
+    public string rol {
+         get { return Rol; }
+        set { Rol = value; }
     }
 
 }
