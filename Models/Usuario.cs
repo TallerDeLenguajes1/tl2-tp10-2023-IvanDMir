@@ -1,11 +1,16 @@
 namespace tl2_tp10_2023_IvanDMir.Models;
+  public enum Roles
+    {
+        admin,
+        simple
+    }
 
 public class Usuario{
 
     private int Id_usuario;
     private string Nombre_De_Usuario;
     private string Contrasena;
-    private string Rol;
+    private Roles Rol;
 
      public int id_usuario
     {
@@ -23,7 +28,7 @@ public class Usuario{
         set { Contrasena = value; }
 
     }
-    public string rol {
+    public Roles rol {
          get { return Rol; }
         set { Rol = value; }
     }

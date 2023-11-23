@@ -1,8 +1,8 @@
 @{
     ViewData["Title"] = "List de Tableros";
 }
-
-@model List<Tablero>
+@using tl2_tp10_2023_IvanDMir.ViewModels;
+@model GBViewModel
 
 <table class="table">
     <thead class="thead-dark">
@@ -14,7 +14,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach(Tablero tablero in Model) {
+        @foreach(Tablero tablero in Model.Tableros) {
             <tr>
                 <td>@tablero.IdTablero</td>
                 <td>@tablero.Nombre</td>

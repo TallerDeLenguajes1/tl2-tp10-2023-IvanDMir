@@ -2,8 +2,8 @@
 @{
     ViewData["Title"] = "Listado Usuarios";
 }
-
-@model List<Usuario>
+@using tl2_tp10_2023_IvanDMir.ViewModels
+@model LUViewModel
 <head>
     <link rel="stylesheet" href="ruta/a/tu/bootstrap.min.css">
 </head>
@@ -19,7 +19,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach(Usuario user in Model){
+        @foreach(Usuario user in Model.Usuarios){
             <tr>
             <td> @user.id_usuario</td>
             <td> @user.nombre_De_Usuario</td>

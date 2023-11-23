@@ -23,12 +23,13 @@ namespace tl2_tp10_2023_IvanDMir.repositorios;
                 {
                     while (reader.Read())
                     {
-                        var Usuario = new Usuario();
-                        Usuario.id_usuario = Convert.ToInt32(reader["id"]);
-                        Usuario.nombre_De_Usuario = reader["nombre_de_usuario"].ToString();
-                        Usuario.contrasena = reader["contrasena"].ToString();
-                        Usuario.rol = reader["rol"].ToString();
-                        Usuarios.Add(Usuario);
+                        var usuario = new Usuario();
+                        usuario.id_usuario = Convert.ToInt32(reader["id"]);
+                        usuario.nombre_De_Usuario = reader["nombre_de_usuario"].ToString();
+                        usuario.contrasena = reader["contrasena"].ToString();
+                        usuario.rol = (Roles)Convert.ToInt32(reader["rol"]);
+                        
+                        Usuarios.Add(usuario);
                     }
                 }
                 connection.Close();
@@ -90,7 +91,7 @@ namespace tl2_tp10_2023_IvanDMir.repositorios;
                         usuarioBuscado.id_usuario = Convert.ToInt32(reader["id"]);
                         usuarioBuscado.nombre_De_Usuario = reader["nombre_de_usuario"].ToString();
                         usuarioBuscado.contrasena = reader["contrasena"].ToString();
-                        usuarioBuscado.rol = reader["rol"].ToString();
+                        usuarioBuscado.rol =(Roles) Convert.ToInt32(reader["rol"]);
                 }
             }
             connection.Close();

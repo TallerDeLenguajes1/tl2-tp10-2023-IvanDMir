@@ -2,7 +2,8 @@
     ViewData["Title"] = "List de Tareas";
 }
 
-@model List<Tarea>
+@using tl2_tp10_2023_IvanDMir.ViewModels;
+@model GTViewModel
 
 <table class="table">
     <thead class="thead-dark">
@@ -17,7 +18,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach(Tarea task in Model) {
+        @foreach(Tarea task in Model.Tareas) {
             <tr>
                 <td>@task.Id</td>
                 <td>@task.IdTablero</td>

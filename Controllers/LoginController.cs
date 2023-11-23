@@ -1,0 +1,46 @@
+using Microsoft.AspNetCore.Mvc;
+using tl2_tp10_2023_IvanDMir.Models;
+using tl2_tp10_2023_IvanDMir.ViewModels;
+using tl2_tp10_2023_IvanDMir.repositorios;
+namespace tl2_tp10_2023_IvanDMir.Controllers;
+
+public class LoginController : Controller
+{
+   UsuarioRepositorio repo;
+
+    private readonly ILogger<LoginController> _logger;
+
+ public LoginController(ILogger<LoginController> logger)
+    {
+        _logger = logger;
+    repo = new UsuarioRepositorio();
+    }
+
+    [HttpGet]
+    public IActionResult Index()
+    {
+        return View(new LoginVM());
+    }
+
+     [HttpPost]
+    public IActionResult Login(LoginVM  login)
+    {
+        var usuarioLogeado = repo.GetAll().FirstOrDefault(u => u.nombre_De_Usuario == login.Nombre && u.contrasena == login.Contrasena);
+
+        if (usuarioLogeado == null){
+            return RedirectToRoute(new { controller = "Login", action = "Index" });
+        } 
+        
+        LoguearUser(usuarioLogeado);
+        
+        return RedirectToRoute(new { controller = "Home", action = "Index" });
+    }
+
+   private void LoguearUser(Usuario user) {
+        HttpContext.Session.SetString("Id", user.id_usuario.ToString());
+        HttpContext.Session.SetString("Usuario", user.nombre_De_Usuario);
+        HttpContext.Session.SetString("Contraseña", user.contrasena);
+        HttpContext.Session.SetString("Rol", Enum.GetName(user.rol));
+    } 
+    
+}

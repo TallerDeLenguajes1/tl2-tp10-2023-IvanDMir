@@ -2,11 +2,11 @@
     ViewData["Title"] = "Añadir Tablero";
 }
 
-@model Tablero
+@using tl2_tp10_2023_IvanDMir.ViewModels;
+@model ABViewModel
 
 <h1>@ViewData["Title"]</h1>
 <form asp-controller="Tablero" asp-action="Add">
-     <input hidden asp-for="@Model.IdTablero">
     <div class="form-group">
         <label for="nombreDeTablero">Nombre de Tablero</label>
         <input asp-for = "@Model.Nombre" class="form-control" id="nombreDeTablero" required>
