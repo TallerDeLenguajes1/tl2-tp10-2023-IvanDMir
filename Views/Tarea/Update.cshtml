@@ -11,6 +11,7 @@
     <div class="form-group">
         <label asp-for="@Model.Nombre">Nuevo Nombre de la tarea</label>
         <input asp-for = "@Model.Nombre" class="form-control" id="NombreTarea" required>
+        <span asp-validation-for="@Model.Nombre" class="text-danger"></span> 
     </div>
      <div class="form-group">
         <label asp-for="@Model.Estado">nuevo Estado de la tarea</label>

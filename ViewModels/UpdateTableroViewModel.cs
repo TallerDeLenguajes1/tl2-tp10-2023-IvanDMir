@@ -1,9 +1,11 @@
 using tl2_tp10_2023_IvanDMir.Models;
-
+using System.ComponentModel.DataAnnotations;
 namespace tl2_tp10_2023_IvanDMir.ViewModels;
 
 public class UBViewModel {
     public int Id { get; set; }
+    [Required(ErrorMessage = "Este campo es requerido.")]
+    [Display(Name = "Nombre de Tablero")] 
     public string Nombre { get; set; }
     public string Descripcion { get; set; }
     public int IdUsuarioPropietario{get;set;}
