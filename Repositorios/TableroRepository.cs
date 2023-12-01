@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using System.Data.SQLite;
 
 
+namespace tl2_tp10_2023_IvanDMir.repositorios{
 
-
-public interface ITableroRepository {
+public interface ITableroRepositorio {
     void Crear(Tablero Tablero);
     void Update(int id, Tablero Tablero);
     Tablero GetById(int id);
@@ -16,10 +16,14 @@ public interface ITableroRepository {
     List<Tablero> GetByUser(int userId);
     void Delete(int id);
 }
-namespace tl2_tp10_2023_IvanDMir.repositorios{
-    public class TableroRepositorios: ITableroRepository{
 
-         private string cadenaConexion = "Data Source=DB/Tareas.db;Cache=Shared";
+    public class TableroRepositorio: ITableroRepositorio{
+
+         private string cadenaConexion;
+          public TableroRepositorio(string CadenaConexion)
+    {
+        this.cadenaConexion = CadenaConexion;
+    }
 
           public void Crear(Tablero tablero){
          var query = $"INSERT INTO Tablero (nombre,descripcion,id_usuario_propietario) VALUES (@nombre,@desc,@idUsuario) ";

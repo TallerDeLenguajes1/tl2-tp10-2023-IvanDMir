@@ -9,12 +9,12 @@ namespace tl2_tp10_2023_IvanDMir.Controllers;
 public class TareaController : Controller
 {
     private readonly ILogger<TareaController> _logger;
-    TareaRepositorios repo;
+    ITareasRepositorio repo;
 
-    public TareaController(ILogger<TareaController> logger)
+    public TareaController(ILogger<TareaController> logger, ITareasRepositorio tareasRepositorio)
     {
         _logger = logger;
-        repo = new TareaRepositorios();
+        repo = tareasRepositorio;
     }
 
   [HttpGet]

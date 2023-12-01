@@ -5,8 +5,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Data.SQLite;
 
-
-public interface ITareasRepository {
+namespace tl2_tp10_2023_IvanDMir.repositorios{
+public interface ITareasRepositorio {
     void Crear(Tarea Tarea);
     void Update(int id, Tarea Tarea);
     Tarea GetById(int id);
@@ -15,10 +15,14 @@ public interface ITareasRepository {
     List<Tarea> GetAll();
     void Delete(int id);
 }
-namespace tl2_tp10_2023_IvanDMir.repositorios{
-    public class TareaRepositorios:ITareasRepository{
 
-         private string cadenaConexion = "Data Source=DB/Tareas.db;Cache=Shared";
+    public class TareaRepositorio:ITareasRepositorio{
+
+         private string cadenaConexion ;
+          public TareaRepositorio(string CadenaConexion)
+    {
+        this.cadenaConexion = CadenaConexion;
+    }
 
          public List<Tarea>  GetAll(){
              {

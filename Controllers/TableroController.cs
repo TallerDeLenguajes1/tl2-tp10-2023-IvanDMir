@@ -8,12 +8,12 @@ namespace tl2_tp10_2023_IvanDMir.Controllers;
 public class TableroController : Controller
 {
     private readonly ILogger<TableroController> _logger;
-    TableroRepositorios repo;
+    ITableroRepositorio repo;
 
-    public TableroController(ILogger<TableroController> logger)
+    public TableroController(ILogger<TableroController> logger,ITableroRepositorio tableroRepositorio)
     {
         _logger = logger;
-        repo = new TableroRepositorios();
+        repo = tableroRepositorio;
     }
 
       [HttpGet]

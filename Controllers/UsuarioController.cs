@@ -9,12 +9,12 @@ namespace tl2_tp10_2023_IvanDMir.Controllers;
 public class UsuarioController : Controller
 {
     private readonly ILogger<UsuarioController> _logger;
-    UsuarioRepositorio repo;
+    IUsuarioRepositorio repo;
 
-    public UsuarioController(ILogger<UsuarioController> logger)
+    public UsuarioController(ILogger<UsuarioController> logger,IUsuarioRepositorio repositorio)
     {
         _logger = logger;
-        repo = new UsuarioRepositorio();
+        repo = repositorio;
     }
       public IActionResult Index()
     {
