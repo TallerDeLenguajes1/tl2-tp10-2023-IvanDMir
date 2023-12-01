@@ -28,12 +28,12 @@ public class LoginController : Controller
         var usuarioLogeado = repo.GetAll().FirstOrDefault(u => u.nombre_De_Usuario == login.Nombre && u.contrasena == login.Contrasena);
 
         if (usuarioLogeado == null){
-            return RedirectToRoute(new { controller = "Login", action = "Index" });
+            return RedirectToRoute(new { controller = "Home", action = "Index" });
         } 
         
         LoguearUser(usuarioLogeado);
         
-        return RedirectToRoute(new { controller = "Home", action = "Index" });
+        return RedirectToRoute(new { controller = "Home", action = "IndexLogueado" });
     }
 
    private void LoguearUser(Usuario user) {

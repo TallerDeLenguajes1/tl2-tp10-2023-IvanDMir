@@ -8,12 +8,17 @@ public class UTViewModel {
     public Estados Estado { get; set; }
     public string Descripcion { get; set; }
     public string Color { get; set; }
+    public int IdTablero {get;set;}
 
+    public UTViewModel(){
+
+    }
     public UTViewModel(Tarea tarea) {
         Id = tarea.Id;
         Nombre = tarea.Nombre;
         Estado = tarea.Estado;
         Descripcion = tarea.Descripcion;
         Color = tarea.Color;
+        IdTablero = tarea.IdTablero;
     }
 }

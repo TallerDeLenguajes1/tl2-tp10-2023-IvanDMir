@@ -4,8 +4,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Data.SQLite;
-namespace tl2_tp10_2023_IvanDMir.repositorios;
-    public class TableroRepositorios{
+
+
+
+
+public interface ITableroRepository {
+    void Crear(Tablero Tablero);
+    void Update(int id, Tablero Tablero);
+    Tablero GetById(int id);
+    List<Tablero> GetAll();
+    List<Tablero> GetByUser(int userId);
+    void Delete(int id);
+}
+namespace tl2_tp10_2023_IvanDMir.repositorios{
+    public class TableroRepositorios: ITableroRepository{
 
          private string cadenaConexion = "Data Source=DB/Tareas.db;Cache=Shared";
 
@@ -41,7 +53,7 @@ namespace tl2_tp10_2023_IvanDMir.repositorios;
                         tablero.IdTablero = Convert.ToInt32(reader["id_Tablero"]);
                         tablero.Nombre = reader["nombre"].ToString();
                         tablero.Descripcion = reader["descripcion"].ToString();
-                        tablero.IdUsuarioPropietario =reader["id_usuario_propietario"] == DBNull.Value ? null : Convert.ToInt32(reader["id_usuario_propietario"]);
+                        tablero.IdUsuarioPropietario =Convert.ToInt32(reader["id_usuario_propietario"]);
                         Tableros.Add(tablero);
                     }
                 }
@@ -119,3 +131,4 @@ namespace tl2_tp10_2023_IvanDMir.repositorios;
     }
 
 
+}

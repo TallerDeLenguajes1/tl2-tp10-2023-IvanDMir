@@ -47,8 +47,13 @@ public class UsuarioController : Controller
  [HttpPost]
     public IActionResult Update(UUViewModel usuarioNuevo) {
         if(!ModelState.IsValid) return RedirectToAction("Index");
-        var usuario = repo.GetAll().FirstOrDefault(u => u.id_usuario == usuarioNuevo.Id);
-        repo.Modificar(usuario.id_usuario, usuario);
+         var Nuevo = new Usuario() {
+            nombre_De_Usuario = usuarioNuevo.Nombre,
+            contrasena = usuarioNuevo.Contrasena,
+            rol = usuarioNuevo.Rol,
+        };
+        
+        repo.Modificar(usuarioNuevo.Id, Nuevo);
         return RedirectToAction("Index");
     }
    [HttpGet]

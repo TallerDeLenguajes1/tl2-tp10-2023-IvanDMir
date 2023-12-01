@@ -7,7 +7,7 @@
 <h1>@ViewData["Title"]</h1>
 <form asp-controller="Usuario" asp-action="Delete">
     <div class="form-group">
-        <label for="nuevaId">ID del usuario a Eliminar</label>
+        <label asp-for="@Model.id_usuario">ID del usuario a Eliminar</label>
         <input type="text" asp-for="@Model.id_usuario" class="form-control" id="nuevaId">  
     </div>
 

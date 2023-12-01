@@ -6,10 +6,14 @@ public class UBViewModel {
     public int Id { get; set; }
     public string Nombre { get; set; }
     public string Descripcion { get; set; }
+    public int IdUsuarioPropietario{get;set;}
+    public UBViewModel(){
 
+    }
     public UBViewModel(Tablero tablero) {
         Id = tablero.IdTablero;
         Nombre = tablero.Nombre;
         Descripcion = tablero.Descripcion;
+        IdUsuarioPropietario = tablero.IdUsuarioPropietario;
     }
 }

@@ -32,5 +32,6 @@ public class Usuario{
          get { return Rol; }
         set { Rol = value; }
     }
+  
 
 }

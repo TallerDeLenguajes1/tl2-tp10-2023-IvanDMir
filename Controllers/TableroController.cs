@@ -44,8 +44,12 @@ public class TableroController : Controller
     [HttpPost]
     public IActionResult Update(UBViewModel tablero) {
         if(!ModelState.IsValid) return RedirectToAction("Index");
-        var TableroViejo = repo.GetAll().FirstOrDefault(b => b.IdTablero == tablero.Id);
-        repo.Update(TableroViejo.IdTablero, TableroViejo);
+         var newTablero = new Tablero() {
+            Nombre = tablero.Nombre,
+            Descripcion = tablero.Descripcion,
+            IdUsuarioPropietario = tablero.IdUsuarioPropietario
+        };
+        repo.Update(tablero.Id, newTablero);
         return RedirectToAction("Index");
     }
      [HttpGet]

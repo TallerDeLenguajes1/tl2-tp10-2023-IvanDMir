@@ -6,8 +6,16 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Data.SQLite;
 
-namespace tl2_tp10_2023_IvanDMir.repositorios;
-    public class UsuarioRepositorio{
+public interface IUsuarioRepository {
+    void Crear(Usuario Usuario);
+    void Modificar(int id, Usuario Usuario);
+    List<Usuario> GetAll();
+    Usuario GetById(int id);
+    void eliminar(int id);
+}
+
+namespace tl2_tp10_2023_IvanDMir.repositorios{
+    public class UsuarioRepositorio:IUsuarioRepository{
         private string cadenaConexion = "Data Source=DB/Tareas.db;Cache=Shared";
 
         public List<Usuario>  GetAll(){
@@ -100,3 +108,4 @@ namespace tl2_tp10_2023_IvanDMir.repositorios;
         }
     }
 
+}

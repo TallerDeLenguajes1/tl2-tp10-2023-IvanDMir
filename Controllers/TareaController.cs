@@ -19,7 +19,7 @@ public class TareaController : Controller
 
   [HttpGet]
     public IActionResult Index() {
-        if(!isLogin()) return RedirectToRoute(new { controller = "Login", action = "Index"});
+        if(!isLogin()) return RedirectToRoute(new { controller = "Home", action = "Index"});
         if(esAdmin()) return View(new GTViewModel(repo.GetAll()));
         var loggedUserId = Convert.ToInt32(HttpContext.Session.GetString("Id"));
         return View(new GTViewModel(repo.GetByUser(loggedUserId)));
@@ -46,8 +46,14 @@ public class TareaController : Controller
     [HttpPost]
     public IActionResult Update(UTViewModel tarea) {
         if(!ModelState.IsValid) return RedirectToAction("Index");
-        var ttarea = repo.GetAll().FirstOrDefault(t => t.Id == tarea.Id);
-        repo.Update(ttarea.Id, ttarea);
+        var nuevaTarea = new Tarea() {
+            Nombre = tarea.Nombre,
+            Descripcion = tarea.Descripcion,
+            Estado = Estados.ToDo,
+            Color = tarea.Color,
+            IdTablero = tarea.IdTablero
+        };
+        repo.Update(tarea.Id, nuevaTarea);
         return RedirectToAction("Index");
     }
 

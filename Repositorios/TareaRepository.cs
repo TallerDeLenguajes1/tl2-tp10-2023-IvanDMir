@@ -4,8 +4,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Data.SQLite;
-namespace tl2_tp10_2023_IvanDMir.repositorios;
-    public class TareaRepositorios{
+
+
+public interface ITareasRepository {
+    void Crear(Tarea Tarea);
+    void Update(int id, Tarea Tarea);
+    Tarea GetById(int id);
+    List<Tarea> GetByUser(int userId);
+    List<Tarea> GetByTablero(int TableroId);
+    List<Tarea> GetAll();
+    void Delete(int id);
+}
+namespace tl2_tp10_2023_IvanDMir.repositorios{
+    public class TareaRepositorios:ITareasRepository{
 
          private string cadenaConexion = "Data Source=DB/Tareas.db;Cache=Shared";
 
@@ -157,17 +168,8 @@ namespace tl2_tp10_2023_IvanDMir.repositorios;
                 connection.Close();
             }
          }
-          public void UpdateUsuario(int idUsuario,Tarea tarea) {
-            string queryText = "UPDATE tarea SETId_usuario_asginado = @IdUsuario " + 
-                                "WHERE id = @id";
-            using(SQLiteConnection connection = new SQLiteConnection(cadenaConexion)) {
-                SQLiteCommand query = new SQLiteCommand(queryText, connection);
-            query.Parameters.Add(new SQLiteParameter("@idUsuario", idUsuario));
-                connection.Open();
-                query.ExecuteNonQuery();
-                connection.Close();
-            }
-         }
+         
 
 
     }
+}

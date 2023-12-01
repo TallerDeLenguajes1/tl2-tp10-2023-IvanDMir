@@ -7,11 +7,11 @@
 <h1>@ViewData["Title"]</h1>
 <form asp-controller="Usuario" asp-action="Update">
      <div class="form-group">
-        <label for="usuario">Nuevo nombre de usuario</label>
+        <label for="@Model.Nombre">Nuevo nombre de usuario</label>
         <input asp-for = "@Model.Nombre" class="form-control" id="usuario">  
     </div>
     <div class="form-group">
-        <label for="nuevapassword">Nueva contrasena</label>
+        <label asp-for="@Model.Contrasena">Nueva contrasena</label>
         <input type="text" asp-for="@Model.Contrasena" class="form-control" id="nuevapassword">  
     </div>
    
