@@ -18,17 +18,45 @@ public class TableroController : Controller
 
       [HttpGet]
     public IActionResult Index() {
-        if(!(isLogin())) return RedirectToRoute(new { controller = "Login", action = "Index"});
-        if(esAdmin()) return View(new GBViewModel(repo.GetAll()));
-        var loggedUserId = Convert.ToInt32(HttpContext.Session.GetString("Id"));
-        return View(new GBViewModel(repo.GetByUser(loggedUserId)));
+
+             try{
+            if(isLogin()){
+                return RedirectToRoute(new{controller = "Login", action = "Index"});
+            }else if(esAdmin()){
+                GBViewModel viewTableros = new GBViewModel(repo.GetAll());
+                
+                return View(viewTableros);
+            }else{
+                GBViewModel tableros = new GBViewModel(repo.GetAll().FindAll(t => t.IdUsuarioPropietario == HttpContext.Session.GetInt32("id")));
+                return View(tableros);
+            }
+        }catch (Exception ex){
+            _logger.LogError(ex.ToString());
+            return BadRequest();
+        }
+
     }
 
     [HttpGet]
-    public IActionResult Add() => View(new ABViewModel());
+    public IActionResult Add(){
+        try{ 
+          if(esAdmin()){
+
+           return View(new ABViewModel());
+          }
+           return RedirectToRoute(new{controller = "Login", action = "Index"});
+        }
+        catch (Exception ex){
+            _logger.LogError(ex.ToString());
+            return BadRequest();
+     }
+    }
 
     [HttpPost]
     public IActionResult Add(ABViewModel tablero) {
+        try {
+
+        
         if(!ModelState.IsValid) return RedirectToAction("Index");
         var newTablero = new Tablero() {
             Nombre = tablero.Nombre,
@@ -37,12 +65,31 @@ public class TableroController : Controller
         };
         repo.Crear(newTablero);
         return RedirectToAction("Index");
+    }catch(Exception ex){
+            _logger.LogError(ex.ToString());
+            return BadRequest();
     }
+    }
+
      [HttpGet]
-    public IActionResult Update(int id) => View(new UBViewModel(repo.GetById(id)));
+    public IActionResult Update(int id) {
+        try{ 
+            if(esAdmin()){
+                View(new UBViewModel(repo.GetById(id)));
+            }
+             return RedirectToRoute(new{controller = "Login", action = "Index"});
+        }catch(Exception ex){
+            _logger.LogError(ex.ToString());
+            return BadRequest();
+        }            
+
+
+    } 
+
 
     [HttpPost]
     public IActionResult Update(UBViewModel tablero) {
+        try{ 
         if(!ModelState.IsValid) return RedirectToAction("Index");
          var newTablero = new Tablero() {
             Nombre = tablero.Nombre,
@@ -51,12 +98,23 @@ public class TableroController : Controller
         };
         repo.Update(tablero.Id, newTablero);
         return RedirectToAction("Index");
+        }catch(Exception ex){
+            _logger.LogError(ex.ToString());
+            return BadRequest();
+        }
     }
      [HttpGet]
     public IActionResult Delete(int id) {
-        if(!ModelState.IsValid) return RedirectToAction("Index");
-        repo.Delete(id);
-        return RedirectToAction("Index");
+        try{
+            if(!ModelState.IsValid || !esAdmin()) return RedirectToAction("Index");
+             repo.Delete(id);
+            return RedirectToAction("Index");
+        }catch(Exception ex){
+            _logger.LogError(ex.ToString());
+            return BadRequest();
+        }
+        
+       
     }
 
       private bool isLogin()
