@@ -1,14 +1,17 @@
 using  tl2_tp10_2023_IvanDMir.repositorios;
+
 var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Services.AddDistributedMemoryCache();
+
 var CadenaDeConexion = builder.Configuration.GetConnectionString("SqliteConexion")!.ToString();//el signo de exclamacion es para decir que no es null
 builder.Services.AddSingleton<string>(CadenaDeConexion);
 
 builder.Services.AddScoped<IUsuarioRepositorio,UsuarioRepositorio>();
 builder.Services.AddScoped<ITableroRepositorio,TableroRepositorio>();
 builder.Services.AddScoped<ITareasRepositorio,TareaRepositorio>();
+
+builder.Services.AddDistributedMemoryCache();
 
 builder.Services.AddSession(options =>
 {

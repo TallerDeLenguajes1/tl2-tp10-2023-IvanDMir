@@ -23,18 +23,34 @@ public class LoginController : Controller
     }
 
      [HttpPost]
-    public IActionResult Login(LoginVM  login)
-    {
-        var usuarioLogeado = repo.GetAll().FirstOrDefault(u => u.nombre_De_Usuario == login.Nombre && u.contrasena == login.Contrasena);
+    public IActionResult Login(LoginVM  login){ 
+       try
+        { 
+             if(ModelState.IsValid){
+                try {
+                        var usuarioLogeado = repo.GetAll().FirstOrDefault(u => u.nombre_De_Usuario == login.Nombre && u.contrasena == login.Contrasena);
 
-        if (usuarioLogeado == null){
-            return RedirectToRoute(new { controller = "Home", action = "Index" });
-        } 
-        
-        LoguearUser(usuarioLogeado);
-        
-        return RedirectToRoute(new { controller = "Home", action = "IndexLogueado" });
+                        if (usuarioLogeado == null){
+                             _logger.LogWarning("Intento de acceso invalido - Usuario: "+login.Nombre+" Clave ingresada: " + login.Contrasena);
+                            return RedirectToRoute(new { controller = "Home", action = "Index" });
+                        } 
+                         _logger.LogInformation("El usuario: "+login.Nombre+" ingreso correctamente");
+                        LoguearUser(usuarioLogeado);
+                        
+                        return RedirectToRoute(new { controller = "Home", action = "IndexLogueado" });
+            }  
+            catch(Exception ex){
+                    _logger.LogError(ex.ToString());
+                    return BadRequest();
+                }
+             }
+             return RedirectToRoute(new { controller = "Home", action = "Index" });
+        }catch (Exception ex){
+            _logger.LogError(ex.ToString());
+            return BadRequest();
+        }
     }
+     
 
    private void LoguearUser(Usuario user) {
         HttpContext.Session.SetString("Id", user.id_usuario.ToString());

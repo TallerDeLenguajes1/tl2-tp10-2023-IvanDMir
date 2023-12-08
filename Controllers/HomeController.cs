@@ -16,18 +16,21 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
-         if (HttpContext.User.Identity.IsAuthenticated){
-             return RedirectToRoute(new { controller = "Home", action = "IndexLogueado"});
-         }
-        return View();
+        try{
+            return View();
+        }catch (Exception ex){
+            _logger.LogError(ex.ToString());
+            return BadRequest();
+        }
     }
      public IActionResult IndexLogueado()
     {
-        if ((HttpContext.User.Identity.IsAuthenticated)){
-             return RedirectToRoute(new { controller = "Home", action = "Index"});
-         }
-        
-        return View();
+        try{
+            return View();
+        }catch (Exception ex){
+            _logger.LogError(ex.ToString());
+            return BadRequest();
+        }
     }
 
     public IActionResult Desloguear()
