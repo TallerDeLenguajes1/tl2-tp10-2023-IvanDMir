@@ -6,14 +6,14 @@ namespace tl2_tp10_2023_IvanDMir.Controllers;
 
 public class LoginController : Controller
 {
-   UsuarioRepositorio repo;
+   IUsuarioRepositorio repo;
 
     private readonly ILogger<LoginController> _logger;
 
- public LoginController(ILogger<LoginController> logger)
+ public LoginController(ILogger<LoginController> logger,IUsuarioRepositorio usuarioRepositorio)
     {
         _logger = logger;
-    repo = new UsuarioRepositorio();
+    repo = usuarioRepositorio;
     }
 
     [HttpGet]

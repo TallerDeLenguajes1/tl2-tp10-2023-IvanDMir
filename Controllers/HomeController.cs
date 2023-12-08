@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using tl2_tp10_2023_IvanDMir.Models;
+using Microsoft.AspNetCore.Authentication;
 
 namespace tl2_tp10_2023_IvanDMir.Controllers;
 
@@ -15,16 +16,24 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
+         if (HttpContext.User.Identity.IsAuthenticated){
+             return RedirectToRoute(new { controller = "Home", action = "IndexLogueado"});
+         }
         return View();
     }
      public IActionResult IndexLogueado()
     {
+        if ((HttpContext.User.Identity.IsAuthenticated)){
+             return RedirectToRoute(new { controller = "Home", action = "Index"});
+         }
+        
         return View();
     }
 
-    public IActionResult Privacy()
+    public IActionResult Desloguear()
     {
-        return View();
+        HttpContext.SignOutAsync();
+        return RedirectToRoute(new { controller = "Home", action = "Index"});
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

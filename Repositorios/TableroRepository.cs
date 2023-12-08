@@ -20,6 +20,8 @@ public interface ITableroRepositorio {
     public class TableroRepositorio: ITableroRepositorio{
 
          private string cadenaConexion;
+
+        
           public TableroRepositorio(string CadenaConexion)
     {
         this.cadenaConexion = CadenaConexion;

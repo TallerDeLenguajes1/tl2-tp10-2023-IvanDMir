@@ -17,6 +17,9 @@ public interface IUsuarioRepositorio {
 
     public class UsuarioRepositorio:IUsuarioRepositorio{
         private string cadenaConexion;
+
+
+
          public UsuarioRepositorio(string CadenaConexion)
     {
         this.cadenaConexion = CadenaConexion;

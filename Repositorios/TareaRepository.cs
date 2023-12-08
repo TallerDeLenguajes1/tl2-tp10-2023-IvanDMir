@@ -19,6 +19,8 @@ public interface ITareasRepositorio {
     public class TareaRepositorio:ITareasRepositorio{
 
          private string cadenaConexion ;
+
+         public TareaRepositorio(){}
           public TareaRepositorio(string CadenaConexion)
     {
         this.cadenaConexion = CadenaConexion;
