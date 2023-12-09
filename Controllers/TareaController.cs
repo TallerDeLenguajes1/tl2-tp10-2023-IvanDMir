@@ -19,16 +19,35 @@ public class TareaController : Controller
 
   [HttpGet]
     public IActionResult Index() {
+        try { 
+        
         if(!isLogin()) return RedirectToRoute(new { controller = "Home", action = "Index"});
+        
         if(esAdmin()) return View(new GTViewModel(repo.GetAll()));
+        
         var loggedUserId = Convert.ToInt32(HttpContext.Session.GetString("Id"));
-        return View(new GTViewModel(repo.GetByUser(loggedUserId)));
+                return View(new GTViewModel(repo.GetByUser(loggedUserId)));
+        
+        }catch(Exception ex){
+            _logger.LogError(ex.ToString());
+            return BadRequest();
+        }
     }
  [HttpGet]
-    public IActionResult Add() => View(new ATViewModel());
+    public IActionResult Add(){
+
+        try{ 
+            if(esAdmin()) return View(new ATViewModel());
+            return RedirectToRoute(new { controller = "Tarea", action = "Index" });
+       }catch(Exception ex){
+        _logger.LogError(ex.ToString());
+        return BadRequest();
+       }
+    }
 
     [HttpPost]
     public IActionResult Add(ATViewModel tarea) {
+        try { 
         if(!ModelState.IsValid) return RedirectToAction("Index");
         var nuevaTarea = new Tarea() {
             Nombre = tarea.Nombre,
@@ -38,13 +57,27 @@ public class TareaController : Controller
             IdTablero = tarea.IdTablero
         };
         repo.Crear(nuevaTarea);
+        
         return RedirectToAction("Index");
+        }catch(Exception ex){
+             _logger.LogError(ex.ToString());
+             return BadRequest();
+        }
     }
    [HttpGet]
-    public IActionResult Update(int id) => View(new UTViewModel(repo.GetById(id)));
+    public IActionResult Update(int id) { 
+        try{ 
+            if(esAdmin()) return View(new UTViewModel(repo.GetById(id)));
+            return RedirectToRoute(new { controller = "Tarea", action = "Index" });
+        }catch(Exception ex){
+             _logger.LogError(ex.ToString());
+             return BadRequest();
 
+        }
+    }
     [HttpPost]
     public IActionResult Update(UTViewModel tarea) {
+        try { 
         if(!ModelState.IsValid) return RedirectToAction("Index");
         var nuevaTarea = new Tarea() {
             Nombre = tarea.Nombre,
@@ -55,12 +88,16 @@ public class TareaController : Controller
         };
         repo.Update(tarea.Id, nuevaTarea);
         return RedirectToAction("Index");
+        }catch(Exception ex){
+            _logger.LogError(ex.ToString());
+             return BadRequest();
+        }
     }
 
 
     [HttpGet]
     public IActionResult Delete(int id) {
-        if(!ModelState.IsValid) return RedirectToAction("Index");
+        if(!esAdmin()) return RedirectToAction("Index");
         repo.Delete(id);
         return RedirectToAction("Index");
     }
