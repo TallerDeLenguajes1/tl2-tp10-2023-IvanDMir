@@ -65,6 +65,9 @@ public interface ITableroRepositorio {
                 }
                 connection.Close();
             }
+            if (Tableros==null){ 
+                 throw new Exception("No hay tableros creados.");
+            }
             return Tableros;
         }
         }
@@ -99,6 +102,9 @@ public interface ITableroRepositorio {
                 }
                 connection.Close();
             }
+            if (tablero==null){ 
+                 throw new Exception("No existe tablero con tal id.");
+            }
             return tablero;
         }
          public List<Tablero> GetByUser(int userId) {
@@ -121,7 +127,9 @@ public interface ITableroRepositorio {
                 }
                 connection.Close();
             }
-    
+            if (tableros==null){ 
+                 throw new Exception("No existe tablero de tal usuario.");
+            }
             return tableros;
         }
          public void Delete(int id) {
