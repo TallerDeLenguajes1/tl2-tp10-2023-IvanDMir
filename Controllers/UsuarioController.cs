@@ -18,17 +18,27 @@ public class UsuarioController : Controller
     }
       public IActionResult Index()
     {
-       if(!isLogin()) return RedirectToRoute(new { controller = "Login", action = "Index"});
+        try{ 
+       if(!isLogin() || !esAdmin()) return RedirectToRoute(new { controller = "Login", action = "Index"});
          return View(new LUViewModel(repo.GetAll()));
-    
+        }catch(Exception ex){
+            _logger.LogError(ex.ToString());
+            return BadRequest();
+        }
     }
    [HttpGet]
     public IActionResult Add(){
+        try{ 
         if(!esAdmin()) return RedirectToAction("Index");
         return View(new AUViewModel());
+        }catch(Exception ex){
+            _logger.LogError(ex.ToString());
+            return BadRequest();
+        }
     }
     [HttpPost]
     public IActionResult Add(AUViewModel user) {
+        try{ 
         if(!esAdmin()) return RedirectToAction("Index");
         var Nuevo = new Usuario() {
             nombre_De_Usuario = user.Nombre,
@@ -37,15 +47,25 @@ public class UsuarioController : Controller
         };
         repo.Crear(Nuevo);
         return RedirectToAction("Index");
+        }catch(Exception ex){
+            _logger.LogError(ex.ToString());
+            return BadRequest();
+        }
     }
 
   [HttpGet]
     public IActionResult Update(int id) {
+        try { 
         if(!esAdmin()) return RedirectToAction("Index");
         return View(new UUViewModel(repo.GetById(id)));
+    }catch(Exception ex){
+            _logger.LogError(ex.ToString());
+            return BadRequest();
+        }
     }
  [HttpPost]
     public IActionResult Update(UUViewModel usuarioNuevo) {
+        try { 
         if(!ModelState.IsValid) return RedirectToAction("Index");
          var Nuevo = new Usuario() {
             nombre_De_Usuario = usuarioNuevo.Nombre,
@@ -55,13 +75,22 @@ public class UsuarioController : Controller
         
         repo.Modificar(usuarioNuevo.Id, Nuevo);
         return RedirectToAction("Index");
+        }catch(Exception ex){
+            _logger.LogError(ex.ToString());
+            return BadRequest();
+        }
     }
    [HttpGet]
     public IActionResult Delete(int id) {
+        try { 
         if(!esAdmin()) return RedirectToAction("Index");
         if(!ModelState.IsValid) return RedirectToAction("Index");
         repo.eliminar(id);
         return RedirectToAction("Index");
+    }catch(Exception ex){
+            _logger.LogError(ex.ToString());
+            return BadRequest();
+        }
     }
 
      private bool isLogin()
