@@ -21,7 +21,7 @@ public class TareaController : Controller
     public IActionResult Index() {
         try { 
         
-        if(!isLogin()) return RedirectToRoute(new { controller = "Home", action = "Index"});
+        if(!isLogin()) return RedirectToRoute(new { controller = "Login", action = "Index"});
         
         if(esAdmin()) return View(new GTViewModel(repo.GetAll()));
         
@@ -103,7 +103,7 @@ public class TareaController : Controller
     }
        private bool isLogin()
     {
-        if (HttpContext.Session != null ){
+        if (HttpContext.Session.GetString("Rol") != null ){
             return true;
         }else{
             return false;
@@ -114,8 +114,6 @@ public class TareaController : Controller
          if (HttpContext.Session.GetString("Rol") == Enum.GetName(Roles.admin)){
             return true;
          }
-         var colo = HttpContext.Session.GetString("Rol");
-         var malo =  Enum.GetName(Roles.admin);
          return false;
         
     }

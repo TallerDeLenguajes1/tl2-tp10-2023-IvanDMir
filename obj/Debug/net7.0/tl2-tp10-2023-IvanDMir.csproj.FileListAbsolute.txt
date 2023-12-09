@@ -172,3 +172,4 @@ C:\Users\User\Desktop\Tp11\tl2-tp10-2023-IvanDMir\obj\Debug\net7.0\refint\tl2-tp
 C:\Users\User\Desktop\Tp11\tl2-tp10-2023-IvanDMir\obj\Debug\net7.0\tl2-tp10-2023-IvanDMir.pdb
 C:\Users\User\Desktop\Tp11\tl2-tp10-2023-IvanDMir\obj\Debug\net7.0\tl2-tp10-2023-IvanDMir.genruntimeconfig.cache
 C:\Users\User\Desktop\Tp11\tl2-tp10-2023-IvanDMir\obj\Debug\net7.0\ref\tl2-tp10-2023-IvanDMir.dll
+C:\Users\User\Desktop\Tp11\tl2-tp10-2023-IvanDMir\bin\Debug\net7.0\DB\Tareas.db

@@ -36,7 +36,7 @@ public class HomeController : Controller
     public IActionResult Desloguear()
     {
         HttpContext.SignOutAsync();
-        return RedirectToRoute(new { controller = "Home", action = "Index"});
+        return RedirectToRoute(new { controller = "Login", action = "Index"});
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
