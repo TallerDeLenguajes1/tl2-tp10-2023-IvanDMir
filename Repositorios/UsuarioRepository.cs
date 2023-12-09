@@ -49,6 +49,9 @@ public interface IUsuarioRepositorio {
                 }
                 connection.Close();
             }
+            if(Usuarios == null){
+                throw new Exception("No hay usuarios creados");
+            }
             return Usuarios;
         }
         }
@@ -110,7 +113,9 @@ public interface IUsuarioRepositorio {
                 }
             }
             connection.Close();
-
+            if(usuarioBuscado == null){
+                throw new Exception("No existe tal usuario");
+            }
             return (usuarioBuscado);
         }
     }

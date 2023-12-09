@@ -52,7 +52,11 @@ public interface ITareasRepositorio {
                 }
                 connection.Close();
             }
+              if (tareas==null){ 
+            throw new Exception("No hay tareas.");
+              }
             return tareas;
+            
         }
         }
 
@@ -110,6 +114,9 @@ public interface ITareasRepositorio {
                 }
                 connection.Close();
             }
+              if (tarea==null){ 
+            throw new Exception("Tarea no existente.");
+              }
             return tarea;
         }
          public List<Tarea> GetByUser(int userId) {
@@ -135,7 +142,9 @@ public interface ITareasRepositorio {
                 }
                 connection.Close();
             }
-    
+             if (Tareas==null){ 
+            throw new Exception("Tareas no existentes.");
+              }
             return Tareas;
         }
         public List<Tarea> GetByTablero(int TableroId) {
@@ -161,7 +170,9 @@ public interface ITareasRepositorio {
                 }
                 connection.Close();
             }
-    
+             if (Tareas==null){ 
+            throw new Exception("Tareas no existentes.");
+              }
             return Tareas;
         }
  public void Delete(int id) {
