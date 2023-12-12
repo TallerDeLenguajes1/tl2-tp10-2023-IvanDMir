@@ -24,35 +24,22 @@ public class LoginController : Controller
 
      [HttpPost]
     public IActionResult Login(LoginVM  login){ 
-       try
-        { 
-             if(ModelState.IsValid){
-                try {
-                        var usuarioLogeado = repo.GetAll().FirstOrDefault(u => u.nombre_De_Usuario == login.Nombre && u.contrasena == login.Contrasena);
-
-                        if (usuarioLogeado == null){
-                             _logger.LogWarning("Intento de acceso invalido - Usuario: "+login.Nombre+" Clave ingresada: " + login.Contrasena);
-                            return RedirectToRoute(new { controller = "Home", action = "Index" });
-                        } 
-                         _logger.LogInformation("El usuario: "+login.Nombre+" ingreso correctamente");
-                        LoguearUser(usuarioLogeado);
-                        
-                        return RedirectToRoute(new { controller = "Home", action = "IndexLogueado" });
-            }  
-            catch(Exception ex){
-                    _logger.LogError(ex.ToString());
-                    return BadRequest();
-                }
-             }
-             return RedirectToRoute(new { controller = "Home", action = "Index" });
-        }catch (Exception ex){
-            _logger.LogError(ex.ToString());
-            return BadRequest();
+        try {
+            var UsuarioLogueado = repo.Existe(login.Nombre, login.Contrasena);
+            LoguearUsuario(UsuarioLogueado);
+            _logger.LogInformation("User " + UsuarioLogueado.nombre_De_Usuario + " logged successfully");
+            return RedirectToRoute(new { controller = "User", action = "Index" });
+        } catch (Exception e) {
+            _logger.LogError(e.ToString());
+            _logger.LogWarning(
+                "Invalid user loggin attempt - Username: "+ login.Nombre + "/Password: " + login.Contrasena
+            );
+            return RedirectToAction("Index");
         }
     }
      
 
-   private void LoguearUser(Usuario user) {
+   private void LoguearUsuario(Usuario user) {
         HttpContext.Session.SetString("Id", user.id_usuario.ToString());
         HttpContext.Session.SetString("Usuario", user.nombre_De_Usuario);
         HttpContext.Session.SetString("Contraseña", user.contrasena);

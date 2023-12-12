@@ -12,6 +12,7 @@ public interface IUsuarioRepositorio {
     List<Usuario> GetAll();
     Usuario GetById(int id);
     void eliminar(int id);
+    Usuario Existe(string usuario, string contrasena);
 }
 
 
@@ -117,7 +118,30 @@ public interface IUsuarioRepositorio {
                 throw new Exception("No existe tal usuario");
             }
             return (usuarioBuscado);
+            
         }
+         public Usuario Existe(string usuario,string contrasena){
+            string Query = "SELECT * FROM usuario WHERE nombre_de_usuario = @nombreDeUsuario AND contrasena = @contrasena";
+            Usuario existencia = new Usuario();
+           using(SQLiteConnection connection = new SQLiteConnection(cadenaConexion)){ 
+            SQLiteCommand query = new SQLiteCommand(Query, connection);
+            query.Parameters.Add(new SQLiteParameter("@nombreDeUsuario", usuario));
+            query.Parameters.Add(new SQLiteParameter("@contrasena", contrasena));
+         connection.Open();
+            using(SQLiteDataReader reader = query.ExecuteReader()) {
+                if(reader.Read()) {
+                    existencia.id_usuario = Convert.ToInt32(reader["id_usuario"]);
+                    existencia.nombre_De_Usuario = reader["nombre_de_usuario"].ToString();
+                    existencia.rol = (Roles)Convert.ToInt32(reader["rol"]);
+                    existencia.contrasena = reader["contrasena"].ToString();
+                } else {
+                    throw new Exception("Los campos no coinciden");
+                }
+            }
+            connection.Close();
+        }
+        return existencia;
+         }
     }
 
 }
