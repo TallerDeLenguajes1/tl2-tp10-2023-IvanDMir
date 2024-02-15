@@ -4,27 +4,30 @@
 @using tl2_tp10_2023_IvanDMir.ViewModels;
 @model ATViewModel
 
-<h1>@ViewData["Title"]</h1>
-<form asp-controller="Tarea" asp-action="Add">
+<h1 class="text-center">@ViewData["Title"]</h1>
+<form asp-controller="Tarea" asp-action="Add" class="p-4 rounded shadow-lg bg-light">
     <div class="form-group">
-        <label asp-for="@Model.IdTablero">Id del tablero</label>
-        <input asp-for = "@Model.IdTablero" class="form-control" id="idDeTablero" required>
-        <span asp-validation-for="@Model.IdTablero" class="text-danger"></span> 
+        <label for="tablero" class="fw-bold">Tablero</label>
+        <select asp-for="@Model.IdTablero" class="form-select" id="tablero" required>
+            @foreach(Tablero tablero in Model.TablerosAUsar) {
+                <option value="@tablero.IdTablero">@tablero.Nombre</option>
+            }
+        </select>
     </div>
     <div class="form-group">
-        <label asp-for="@Model.Nombre">Nombre de la tarea</label>
-        <input asp-for = "@Model.Nombre" class="form-control" id="NombreTarea" required>
+        <label for="NombreTarea" class="fw-bold">Nombre de la tarea</label>
+        <input asp-for="@Model.Nombre" class="form-control" id="NombreTarea" required>
         <span asp-validation-for="@Model.Nombre" class="text-danger"></span> 
     </div>
     <div class="form-group">
-        <label asp-for="@Model.Descripcion">Descripcion de Tarea</label>
-        <input asp-for = "@Model.Descripcion" class="form-control" id="DescTarea" required>
+        <label for="DescTarea" class="fw-bold">Descripción de Tarea</label>
+        <input asp-for="@Model.Descripcion" class="form-control" id="DescTarea" required>
         <span asp-validation-for="@Model.Descripcion" class="text-danger"></span> 
     </div>
-      <div class="form-group">
-        <label asp-for="@Model.Color">color de tarea</label>
-        <input asp-for = "@Model.Color" class="form-control" id="Color" required>
+    <div class="form-group">
+        <label for="Color" class="fw-bold">Color de tarea</label>
+        <input asp-for="@Model.Color" class="form-control" id="Color" required>
         <span asp-validation-for="@Model.Color" class="text-danger"></span> 
     </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary">Enviar</button>
 </form>

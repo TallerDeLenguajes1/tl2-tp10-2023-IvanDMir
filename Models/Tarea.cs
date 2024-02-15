@@ -1,9 +1,9 @@
 namespace tl2_tp10_2023_IvanDMir.Models;
 public enum Estados{
-    ToDo,
-    Doing,
-    Review,
-    Done
+    Pendiente,
+    Haciendo,
+    revisión,
+    Finalizada
 }
 public class Tarea{
     private int id;

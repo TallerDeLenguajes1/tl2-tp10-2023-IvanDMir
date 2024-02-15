@@ -27,16 +27,30 @@ public class LoginController : Controller
         try {
             var UsuarioLogueado = repo.Existe(login.Nombre, login.Contrasena);
             LoguearUsuario(UsuarioLogueado);
-            _logger.LogInformation("User " + UsuarioLogueado.nombre_De_Usuario + " logged successfully");
-            return RedirectToRoute(new { controller = "User", action = "Index" });
+            _logger.LogInformation("Usuario " + UsuarioLogueado.nombre_De_Usuario + " Logueado correctamente");
+            return RedirectToRoute(new { controller = "Usuario", action = "Index" });
         } catch (Exception e) {
             _logger.LogError(e.ToString());
             _logger.LogWarning(
-                "Invalid user loggin attempt - Username: "+ login.Nombre + "/Password: " + login.Contrasena
+                "Intento de loguear Invalido - usuario: "+ login.Nombre + "/Contraseña: " + login.Contrasena
             );
             return RedirectToAction("Index");
         }
     }
+      [HttpGet]
+    public IActionResult Desloguear(int idUsuario) {
+        try {
+            var usuarioActual = repo.GetById(idUsuario);
+            DesloguearUsuario();
+            _logger.LogInformation("User " + usuarioActual.nombre_De_Usuario + " unlogged successfully");
+            return RedirectToAction("Index");
+        } catch (Exception e) {
+            _logger.LogError(e.ToString());
+            _logger.LogWarning("No se pudo desloguear");
+            return RedirectToRoute(new { controller = "Login", action = "Index"});
+        }
+    }
+ 
      
 
    private void LoguearUsuario(Usuario user) {
@@ -45,5 +59,12 @@ public class LoginController : Controller
         HttpContext.Session.SetString("Contraseña", user.contrasena);
         HttpContext.Session.SetString("Rol", Enum.GetName(user.rol));
     } 
-    
+     private void DesloguearUsuario() {
+        HttpContext.Session.SetString("Id", string.Empty);
+        HttpContext.Session.SetString("User", string.Empty);
+        HttpContext.Session.SetString("Password", string.Empty);
+        HttpContext.Session.SetString("Role", string.Empty);
+    }  
+   
 }
+    

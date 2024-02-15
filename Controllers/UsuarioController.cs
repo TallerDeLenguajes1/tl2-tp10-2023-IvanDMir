@@ -19,8 +19,9 @@ public class UsuarioController : Controller
       public IActionResult Index()
     {
         try{ 
-       if(!isLogin() || !esAdmin()) return RedirectToRoute(new { controller = "Login", action = "Index"});
-         return View(new LUViewModel(repo.GetAll()));
+       if(!isLogin()) return RedirectToRoute(new { controller = "Login", action = "Index"});
+        if(!esAdmin()) return RedirectToRoute(new {controller = "Tarea", action = "Index"});
+             return View(new LUViewModel(repo.GetAll()));
         }catch(Exception ex){
             _logger.LogError(ex.ToString());
             return BadRequest();
@@ -29,6 +30,7 @@ public class UsuarioController : Controller
    [HttpGet]
     public IActionResult Add(){
         try{ 
+        if(!isLogin()) return RedirectToRoute(new { controller = "Login", action = "Index"});
         if(!esAdmin()) return RedirectToAction("Index");
         return View(new AUViewModel());
         }catch(Exception ex){
@@ -56,6 +58,7 @@ public class UsuarioController : Controller
   [HttpGet]
     public IActionResult Update(int id) {
         try { 
+         if(!isLogin()) return RedirectToRoute(new { controller = "Login", action = "Index"});
         if(!esAdmin()) return RedirectToAction("Index");
         return View(new UUViewModel(repo.GetById(id)));
     }catch(Exception ex){
@@ -68,12 +71,13 @@ public class UsuarioController : Controller
         try { 
         if(!ModelState.IsValid) return RedirectToAction("Index");
          var Nuevo = new Usuario() {
+            id_usuario = usuarioNuevo.Id,
             nombre_De_Usuario = usuarioNuevo.Nombre,
             contrasena = usuarioNuevo.Contrasena,
             rol = usuarioNuevo.Rol,
         };
         
-        repo.Modificar(usuarioNuevo.Id, Nuevo);
+        repo.Modificar(Nuevo.id_usuario, Nuevo);
         return RedirectToAction("Index");
         }catch(Exception ex){
             _logger.LogError(ex.ToString());
@@ -106,8 +110,6 @@ public class UsuarioController : Controller
          if (HttpContext.Session.GetString("Rol") == Enum.GetName(Roles.admin)){
             return true;
          }
-         var colo = HttpContext.Session.GetString("Rol");
-         var malo =  Enum.GetName(Roles.admin);
          return false;
         
     }

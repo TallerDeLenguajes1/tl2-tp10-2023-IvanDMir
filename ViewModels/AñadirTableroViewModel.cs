@@ -17,4 +17,8 @@ public class ABViewModel {
     public int IdUsuarioPropietario { get; set; }
 
     public ABViewModel() {}
+    public ABViewModel(int IdPropietario){
+        IdUsuarioPropietario = IdPropietario;
+
+    }
 }

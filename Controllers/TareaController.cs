@@ -9,12 +9,18 @@ namespace tl2_tp10_2023_IvanDMir.Controllers;
 public class TareaController : Controller
 {
     private readonly ILogger<TareaController> _logger;
-    ITareasRepositorio repo;
+    private ITareasRepositorio repo;
+    private ITableroRepositorio tablerorepo;
+    private IUsuarioRepositorio usuarioRepo;
+    
 
-    public TareaController(ILogger<TareaController> logger, ITareasRepositorio tareasRepositorio)
+    public TareaController(ILogger<TareaController> logger, ITareasRepositorio tareasRepositorio,ITableroRepositorio tableroRepositorio,IUsuarioRepositorio usuarioRepositorio)
     {
         _logger = logger;
         repo = tareasRepositorio;
+        tablerorepo = tableroRepositorio;
+        usuarioRepo = usuarioRepositorio;
+
     }
 
   [HttpGet]
@@ -22,11 +28,10 @@ public class TareaController : Controller
         try { 
         
         if(!isLogin()) return RedirectToRoute(new { controller = "Login", action = "Index"});
+         var IdUsuarioLogueado = Convert.ToInt32(HttpContext.Session.GetString("Id"));
         
-        if(esAdmin()) return View(new GTViewModel(repo.GetAll()));
-        
-        var loggedUserId = Convert.ToInt32(HttpContext.Session.GetString("Id"));
-                return View(new GTViewModel(repo.GetByUser(loggedUserId)));
+        if(esAdmin()) return View(new GTViewModel(repo.GetByUser(IdUsuarioLogueado),repo.GetByAsignado(IdUsuarioLogueado),repo.GetAll()));
+                return RedirectToRoute(new { controller = "Tarea", action = "IndexOperador"});
         
         }catch(Exception ex){
             _logger.LogError(ex.ToString());
@@ -34,11 +39,25 @@ public class TareaController : Controller
         }
     }
  [HttpGet]
+    public IActionResult IndexOperador(){
+        try{
+            var IdUsuarioLogueado = Convert.ToInt32(HttpContext.Session.GetString("Id"));
+             return View(new GTViewModel(repo.GetByUser(IdUsuarioLogueado),repo.GetByAsignado(IdUsuarioLogueado)));
+        }catch(Exception ex){
+            _logger.LogError(ex.ToString());
+            return BadRequest();
+        }
+
+    }
+
+
+ [HttpGet]
     public IActionResult Add(){
 
         try{ 
-            if(esAdmin()) return View(new ATViewModel());
-            return RedirectToRoute(new { controller = "Tarea", action = "Index" });
+             if(!isLogin()) return RedirectToRoute(new { controller = "Login", action = "Index"});
+         return View(new ATViewModel(tablerorepo.GetByUser(Convert.ToInt32(HttpContext.Session.GetString("Id")))));
+            
        }catch(Exception ex){
         _logger.LogError(ex.ToString());
         return BadRequest();
@@ -52,7 +71,7 @@ public class TareaController : Controller
         var nuevaTarea = new Tarea() {
             Nombre = tarea.Nombre,
             Descripcion = tarea.Descripcion,
-            Estado = Estados.ToDo,
+            Estado = Estados.Pendiente,
             Color = tarea.Color,
             IdTablero = tarea.IdTablero
         };
@@ -67,8 +86,15 @@ public class TareaController : Controller
    [HttpGet]
     public IActionResult Update(int id) { 
         try{ 
-            if(esAdmin()) return View(new UTViewModel(repo.GetById(id)));
-            return RedirectToRoute(new { controller = "Tarea", action = "Index" });
+            var IdUsuarioLogueado = Convert.ToInt32(HttpContext.Session.GetString("Id"));
+            var tarea = repo.GetById(id);
+            var TablerosDelUsuario = tablerorepo.GetByUser(IdUsuarioLogueado);
+            foreach(Tablero tablero in TablerosDelUsuario){
+                if(tablero.IdTablero == tarea.IdTablero){
+                    return View(new UTViewModel(tarea,true));
+                }
+            }
+            return View(new UTViewModel(tarea,false));
         }catch(Exception ex){
              _logger.LogError(ex.ToString());
              return BadRequest();
@@ -82,7 +108,7 @@ public class TareaController : Controller
         var nuevaTarea = new Tarea() {
             Nombre = tarea.Nombre,
             Descripcion = tarea.Descripcion,
-            Estado = Estados.ToDo,
+            Estado = Estados.Pendiente,
             Color = tarea.Color,
             IdTablero = tarea.IdTablero
         };
@@ -93,6 +119,26 @@ public class TareaController : Controller
              return BadRequest();
         }
     }
+    [HttpGet]
+    public IActionResult Asignar(int TareaId) {
+        if (!isLogin()) return RedirectToRoute(new { controller = "Login", action = "Index"});
+        if (!esAdmin()) return RedirectToAction("Index");
+        return View(new AsTVM(TareaId)); 
+    }       
+
+    [HttpPost]
+    public IActionResult Asignar(AsTVM tarea) {
+        if(!ModelState.IsValid) return RedirectToAction("Index");
+        try {
+            var usuarioElegido = usuarioRepo.GetByUsuario(tarea.usuario);
+            repo.Asignar(usuarioElegido.id_usuario, tarea.Idtarea);
+        } catch (Exception e) {
+            _logger.LogError(e.ToString());
+        }
+        return RedirectToAction("Index");
+        
+    }
+
 
 
     [HttpGet]
@@ -111,7 +157,8 @@ public class TareaController : Controller
     }
 
     private bool esAdmin(){
-         if (HttpContext.Session.GetString("Rol") == Enum.GetName(Roles.admin)){
+        var rol =HttpContext.Session.GetString("Rol");
+         if ( rol  == "admin" ){
             return true;
          }
          return false;

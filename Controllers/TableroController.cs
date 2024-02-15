@@ -20,15 +20,15 @@ public class TableroController : Controller
     public IActionResult Index() {
 
              try{
-            if(isLogin()){
+                var IdUsuarioLogueado = Convert.ToInt32(HttpContext.Session.GetString("Id"));
+            if(!isLogin()){
                 return RedirectToRoute(new{controller = "Login", action = "Index"});
             }else if(esAdmin()){
-                GBViewModel viewTableros = new GBViewModel(repo.GetAll());
                 
+                GBViewModel viewTableros = new GBViewModel(repo.GetAll(),repo.GetByUser(IdUsuarioLogueado),repo.GetByTarea(IdUsuarioLogueado),IdUsuarioLogueado);
                 return View(viewTableros);
             }else{
-                GBViewModel tableros = new GBViewModel(repo.GetAll().FindAll(t => t.IdUsuarioPropietario == HttpContext.Session.GetInt32("id")));
-                return View(tableros);
+                return RedirectToRoute(new { controller = "Tablero", action = "IndexOperador"});
             }
         }catch (Exception ex){
             _logger.LogError(ex.ToString());
@@ -38,13 +38,28 @@ public class TableroController : Controller
     }
 
     [HttpGet]
+
+    public IActionResult IndexOperador(){
+        try{
+            if(!isLogin()){
+                return RedirectToRoute(new{controller = "Login", action = "Index"});
+            }
+            var IdUsuarioLogueado = Convert.ToInt32(HttpContext.Session.GetString("Id"));
+            GBViewModel viewTableros = new GBViewModel(repo.GetByUser(IdUsuarioLogueado),repo.GetByTarea(IdUsuarioLogueado),IdUsuarioLogueado);
+            return View(viewTableros);
+        }catch (Exception ex){
+            _logger.LogError(ex.ToString());
+            return BadRequest();
+    }
+    }
+
+    [HttpGet]
     public IActionResult Add(){
         try{ 
-          if(esAdmin()){
-
-           return View(new ABViewModel());
-          }
-           return RedirectToRoute(new{controller = "Login", action = "Index"});
+            if(!isLogin()){
+                return RedirectToRoute(new{controller = "Login", action = "Index"});
+            }
+           return View(new ABViewModel(Convert.ToInt32(HttpContext.Session.GetString("Id"))));
         }
         catch (Exception ex){
             _logger.LogError(ex.ToString());
@@ -75,7 +90,7 @@ public class TableroController : Controller
     public IActionResult Update(int id) {
         try{ 
             if(esAdmin()){
-                View(new UBViewModel(repo.GetById(id)));
+              return View(new UBViewModel(repo.GetById(id)));
             }
              return RedirectToRoute(new{controller = "Login", action = "Index"});
         }catch(Exception ex){
@@ -92,11 +107,12 @@ public class TableroController : Controller
         try{ 
         if(!ModelState.IsValid) return RedirectToAction("Index");
          var newTablero = new Tablero() {
+            IdTablero = tablero.Id,
             Nombre = tablero.Nombre,
             Descripcion = tablero.Descripcion,
             IdUsuarioPropietario = tablero.IdUsuarioPropietario
         };
-        repo.Update(tablero.Id, newTablero);
+        repo.Update(newTablero.IdTablero, newTablero);
         return RedirectToAction("Index");
         }catch(Exception ex){
             _logger.LogError(ex.ToString());
@@ -126,13 +142,11 @@ public class TableroController : Controller
         }
     }
 
-    private bool esAdmin(){
-         if (HttpContext.Session.GetString("Rol") == Enum.GetName(Roles.admin)){
+       private bool esAdmin(){
+        var rol =HttpContext.Session.GetString("Rol");
+         if ( rol  == "admin" ){
             return true;
          }
-         var colo = HttpContext.Session.GetString("Rol");
-         var malo =  Enum.GetName(Roles.admin);
          return false;
-        
     }
 }

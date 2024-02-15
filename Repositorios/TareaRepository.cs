@@ -9,11 +9,13 @@ namespace tl2_tp10_2023_IvanDMir.repositorios{
 public interface ITareasRepositorio {
     void Crear(Tarea Tarea);
     void Update(int id, Tarea Tarea);
+    List<Tarea> GetByAsignado(int id);
     Tarea GetById(int id);
     List<Tarea> GetByUser(int userId);
     List<Tarea> GetByTablero(int TableroId);
     List<Tarea> GetAll();
     void Delete(int id);
+    void Asignar(int userId, int tareaId);
 }
 
     public class TareaRepositorio:ITareasRepositorio{
@@ -94,6 +96,32 @@ public interface ITareasRepositorio {
         connection.Close();
         }
      }
+
+     public List<Tarea> GetByAsignado(int id) {
+        string queryText = "SELECT * FROM tarea WHERE id_usuario_asignado = @id";
+        List<Tarea> tareas = new List<Tarea>();
+        using(SQLiteConnection connection = new SQLiteConnection(cadenaConexion)) {
+            SQLiteCommand query = new SQLiteCommand(queryText, connection);
+            query.Parameters.Add(new SQLiteParameter("@id", id));
+            connection.Open();
+            using(SQLiteDataReader reader = query.ExecuteReader()) {
+                while(reader.Read()) {
+                    var tarea = new Tarea() {
+                        Id = Convert.ToInt32(reader["id"]),
+                        IdTablero = Convert.ToInt32(reader["id_tablero"]),
+                        Nombre = reader["nombre"].ToString(),
+                        Estado = (Estados)Convert.ToInt32(reader["estado"]),
+                        Descripcion = reader["descripcion"].ToString(),
+                        Color = reader["color"].ToString(),
+                        IdUsuarioAsignado = Convert.ToInt32(reader["id_usuario_asignado"])
+                    };
+                    tareas.Add(tarea);
+                }
+            }
+            connection.Close();
+        }
+        return tareas;
+    }
           public Tarea GetById(int id) {
             string queryText = "SELECT * FROM tarea WHERE id = @id";
             Tarea tarea = new Tarea();
@@ -118,34 +146,36 @@ public interface ITareasRepositorio {
             throw new Exception("Tarea no existente.");
               }
             return tarea;
-        }
-         public List<Tarea> GetByUser(int userId) {
-            string queryText = "SELECT * FROM tarea WHERE Id_Usuario_asignado = @id";
-            List<Tarea> Tareas = new List<Tarea>();
-            using(SQLiteConnection connection = new SQLiteConnection(cadenaConexion)) {
-                SQLiteCommand query = new SQLiteCommand(queryText, connection);
-                query.Parameters.Add(new SQLiteParameter("@id", userId));
-                connection.Open();
-                using(SQLiteDataReader reader = query.ExecuteReader()) {
-                    while(reader.Read()) {
-                            var tarea = new Tarea();
-                            tarea.Id= Convert.ToInt32(reader["id"]);
-                            tarea.IdTablero =Convert.ToInt32(reader["id_tablero"]);
-                            tarea.Estado = (Estados) Convert.ToInt32(reader["estado"]);
-                            tarea.Nombre = reader["nombre"].ToString();
-                            tarea.Descripcion = reader["descripcion"] == DBNull.Value ? null : reader["descripcion"].ToString();
-                            tarea.Color = reader["color"] == DBNull.Value ? null : reader["color"].ToString();
-                            tarea.IdUsuarioAsignado = Convert.ToInt32(reader["Id_Usuario_asignado"]);
-                            
-                            Tareas.Add(tarea);
-                    }
+          }
+    
+         public List<Tarea> GetByUser(int IdUsuario) {
+            string queryText = "SELECT t.id, t.nombre, t.descripcion, color, estado, t.id_tablero, id_usuario_asignado FROM tarea t " +
+                            "INNER JOIN tablero b ON t.id_tablero = b.id_Tablero WHERE id_usuario_propietario = @id";
+               List<Tarea> tareas = new List<Tarea>();
+        using(SQLiteConnection connection = new SQLiteConnection(cadenaConexion)) {
+            SQLiteCommand query = new SQLiteCommand(queryText, connection);
+            query.Parameters.Add(new SQLiteParameter("@id", IdUsuario));
+            connection.Open();
+            using(SQLiteDataReader reader = query.ExecuteReader()) {
+                while(reader.Read()) {
+                    var tarea = new Tarea() {
+                        Id = Convert.ToInt32(reader["id"]),
+                        IdTablero = Convert.ToInt32(reader["id_tablero"]),
+                        Nombre = reader["nombre"].ToString(),
+                        Estado = (Estados)Convert.ToInt32(reader["estado"]),
+                        Descripcion = reader["descripcion"].ToString(),
+                        Color = reader["color"].ToString(),
+                        IdUsuarioAsignado =Convert.ToInt32(reader["id_usuario_asignado"]) 
+                    };
+                    tareas.Add(tarea);
                 }
-                connection.Close();
             }
-             if (Tareas==null){ 
+            connection.Close();
+            }
+             if (tareas==null){ 
             throw new Exception("Tareas no existentes.");
               }
-            return Tareas;
+            return tareas;
         }
         public List<Tarea> GetByTablero(int TableroId) {
             string queryText = "SELECT * FROM tarea WHERE Id_tablero = @id";
@@ -185,6 +215,17 @@ public interface ITareasRepositorio {
                 connection.Close();
             }
          }
+           public void Asignar(int userId, int tareaId) {
+        string queryText = "UPDATE tarea SET id_usuario_asignado = @id_usuario_asignado WHERE id = @id";
+        using(SQLiteConnection connection = new SQLiteConnection(cadenaConexion)) {
+            SQLiteCommand query = new SQLiteCommand(queryText, connection);
+            query.Parameters.Add(new SQLiteParameter("@id_usuario_asignado", userId));
+            query.Parameters.Add(new SQLiteParameter("@id", tareaId));
+            connection.Open();
+            int rowsAffected = query.ExecuteNonQuery();
+            connection.Close();
+        }
+    }
          
 
 

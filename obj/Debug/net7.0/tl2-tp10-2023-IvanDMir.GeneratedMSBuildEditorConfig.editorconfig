@@ -9,85 +9,81 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = tl2_tp10_2023_IvanDMir
 build_property.RootNamespace = tl2_tp10_2023_IvanDMir
-build_property.ProjectDir = c:\Users\User\Desktop\Tp11\tl2-tp10-2023-IvanDMir\
+build_property.ProjectDir = C:\Users\User\Desktop\Proyecto taller\tl2-tp10-2023-IvanDMir\
 build_property.RazorLangVersion = 7.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = c:\Users\User\Desktop\Tp11\tl2-tp10-2023-IvanDMir
+build_property.MSBuildProjectDirectory = C:\Users\User\Desktop\Proyecto taller\tl2-tp10-2023-IvanDMir
 build_property._RazorSourceGeneratorDebug = 
 
-[c:/Users/User/Desktop/Tp11/tl2-tp10-2023-IvanDMir/Views/Home/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[c:/Users/User/Desktop/Tp11/tl2-tp10-2023-IvanDMir/Views/Home/IndexLogueado.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleExvZ3VlYWRvLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[c:/Users/User/Desktop/Tp11/tl2-tp10-2023-IvanDMir/Views/Home/Privacy.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[c:/Users/User/Desktop/Tp11/tl2-tp10-2023-IvanDMir/Views/Login/Index.cshtml]
+[C:/Users/User/Desktop/Proyecto taller/tl2-tp10-2023-IvanDMir/Views/Login/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9naW5cSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/User/Desktop/Tp11/tl2-tp10-2023-IvanDMir/Views/Shared/Error.cshtml]
+[C:/Users/User/Desktop/Proyecto taller/tl2-tp10-2023-IvanDMir/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/User/Desktop/Tp11/tl2-tp10-2023-IvanDMir/Views/Shared/_ValidationScriptsPartial.cshtml]
+[C:/Users/User/Desktop/Proyecto taller/tl2-tp10-2023-IvanDMir/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/User/Desktop/Tp11/tl2-tp10-2023-IvanDMir/Views/Tablero/Add.cshtml]
+[C:/Users/User/Desktop/Proyecto taller/tl2-tp10-2023-IvanDMir/Views/Tablero/Add.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFibGVyb1xBZGQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/User/Desktop/Tp11/tl2-tp10-2023-IvanDMir/Views/Tablero/Index.cshtml]
+[C:/Users/User/Desktop/Proyecto taller/tl2-tp10-2023-IvanDMir/Views/Tablero/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFibGVyb1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/User/Desktop/Tp11/tl2-tp10-2023-IvanDMir/Views/Tablero/Update.cshtml]
+[C:/Users/User/Desktop/Proyecto taller/tl2-tp10-2023-IvanDMir/Views/Tablero/IndexOperador.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFibGVyb1xJbmRleE9wZXJhZG9yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/User/Desktop/Proyecto taller/tl2-tp10-2023-IvanDMir/Views/Tablero/Update.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFibGVyb1xVcGRhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/User/Desktop/Tp11/tl2-tp10-2023-IvanDMir/Views/Tarea/Add.cshtml]
+[C:/Users/User/Desktop/Proyecto taller/tl2-tp10-2023-IvanDMir/Views/Tarea/Add.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFyZWFcQWRkLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/User/Desktop/Tp11/tl2-tp10-2023-IvanDMir/Views/Tarea/Index.cshtml]
+[C:/Users/User/Desktop/Proyecto taller/tl2-tp10-2023-IvanDMir/Views/Tarea/Asignar.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFyZWFcQXNpZ25hci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/User/Desktop/Proyecto taller/tl2-tp10-2023-IvanDMir/Views/Tarea/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFyZWFcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/User/Desktop/Tp11/tl2-tp10-2023-IvanDMir/Views/Tarea/Update.cshtml]
+[C:/Users/User/Desktop/Proyecto taller/tl2-tp10-2023-IvanDMir/Views/Tarea/IndexOperador.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFyZWFcSW5kZXhPcGVyYWRvci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/User/Desktop/Proyecto taller/tl2-tp10-2023-IvanDMir/Views/Tarea/Update.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFyZWFcVXBkYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/User/Desktop/Tp11/tl2-tp10-2023-IvanDMir/Views/Usuario/Add.cshtml]
+[C:/Users/User/Desktop/Proyecto taller/tl2-tp10-2023-IvanDMir/Views/Usuario/Add.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb1xBZGQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/User/Desktop/Tp11/tl2-tp10-2023-IvanDMir/Views/Usuario/Delete.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb1xEZWxldGUuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[c:/Users/User/Desktop/Tp11/tl2-tp10-2023-IvanDMir/Views/Usuario/Index.cshtml]
+[C:/Users/User/Desktop/Proyecto taller/tl2-tp10-2023-IvanDMir/Views/Usuario/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/User/Desktop/Tp11/tl2-tp10-2023-IvanDMir/Views/Usuario/Update.cshtml]
+[C:/Users/User/Desktop/Proyecto taller/tl2-tp10-2023-IvanDMir/Views/Usuario/Update.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb1xVcGRhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/User/Desktop/Tp11/tl2-tp10-2023-IvanDMir/Views/_ViewImports.cshtml]
+[C:/Users/User/Desktop/Proyecto taller/tl2-tp10-2023-IvanDMir/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/User/Desktop/Tp11/tl2-tp10-2023-IvanDMir/Views/_ViewStart.cshtml]
+[C:/Users/User/Desktop/Proyecto taller/tl2-tp10-2023-IvanDMir/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/User/Desktop/Tp11/tl2-tp10-2023-IvanDMir/Views/Shared/_Layout.cshtml]
+[C:/Users/User/Desktop/Proyecto taller/tl2-tp10-2023-IvanDMir/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-r63nzwrzyu

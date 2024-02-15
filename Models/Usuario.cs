@@ -2,7 +2,7 @@ namespace tl2_tp10_2023_IvanDMir.Models;
   public enum Roles
     {
         admin,
-        simple
+        operador
     }
 
 public class Usuario{

@@ -11,8 +11,10 @@ public interface IUsuarioRepositorio {
     void Modificar(int id, Usuario Usuario);
     List<Usuario> GetAll();
     Usuario GetById(int id);
+    Usuario GetByUsuario(string nombreUsuario);
     void eliminar(int id);
     Usuario Existe(string usuario, string contrasena);
+    
 }
 
 
@@ -120,6 +122,27 @@ public interface IUsuarioRepositorio {
             return (usuarioBuscado);
             
         }
+           public Usuario GetByUsuario(string usuario) {
+        string queryText = "SELECT * FROM usuario WHERE nombre_de_usuario = @usuario";
+        Usuario usu = new Usuario();
+        using(SQLiteConnection connection = new SQLiteConnection(cadenaConexion)) {
+            SQLiteCommand query = new SQLiteCommand(queryText, connection);
+            query.Parameters.Add(new SQLiteParameter("@usuario", usuario));
+            connection.Open();
+            using(SQLiteDataReader reader = query.ExecuteReader()) {
+                if(reader.Read()) {
+                    usu.id_usuario = Convert.ToInt32(reader["id"]);
+                    usu.nombre_De_Usuario = reader["nombre_de_usuario"].ToString();
+                    usu.rol = (Roles)Convert.ToInt32(reader["rol"]);
+                    usu.contrasena = reader["contrasena"].ToString();
+                } else {
+                    throw new Exception("Usuario no encontrado");
+                }
+            }
+            connection.Close();
+        }
+        return usu;
+    }
          public Usuario Existe(string usuario,string contrasena){
             string Query = "SELECT * FROM usuario WHERE nombre_de_usuario = @nombreDeUsuario AND contrasena = @contrasena";
             Usuario existencia = new Usuario();
@@ -130,7 +153,7 @@ public interface IUsuarioRepositorio {
          connection.Open();
             using(SQLiteDataReader reader = query.ExecuteReader()) {
                 if(reader.Read()) {
-                    existencia.id_usuario = Convert.ToInt32(reader["id_usuario"]);
+                    existencia.id_usuario = Convert.ToInt32(reader["id"]);
                     existencia.nombre_De_Usuario = reader["nombre_de_usuario"].ToString();
                     existencia.rol = (Roles)Convert.ToInt32(reader["rol"]);
                     existencia.contrasena = reader["contrasena"].ToString();

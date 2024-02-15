@@ -1,29 +1,35 @@
 @{ 
-    ViewData["Title"] = "Añadir tarea";
+    ViewData["Title"] = "Actualizar tarea";
 }
 
 @using tl2_tp10_2023_IvanDMir.ViewModels;
 @model UTViewModel
 
-<h1>@ViewData["Title"]</h1>
-<form asp-controller="Tarea" asp-action="Update">
-     <input hidden asp-for="@Model.Id">
+<form asp-controller="Tarea" asp-action="Update" class="p-4 rounded shadow-lg bg-light">
+    <input hidden asp-for="@Model.Id">
     <div class="form-group">
-        <label asp-for="@Model.Nombre">Nuevo Nombre de la tarea</label>
-        <input asp-for = "@Model.Nombre" class="form-control" id="NombreTarea" required>
+        <label for="NombreTarea" class="fw-bold">Nuevo nombre de la tarea</label>
+        <input asp-for="@Model.Nombre" class="form-control" id="NombreTarea" required>
         <span asp-validation-for="@Model.Nombre" class="text-danger"></span> 
     </div>
-     <div class="form-group">
-        <label asp-for="@Model.Estado">nuevo Estado de la tarea</label>
-        <input asp-for = "@Model.Estado" class="form-control" id="Estado" required>
+    <div class="form-group">
+        <label for="Estado" class="fw-bold">Nuevo estado de la tarea</label>
+        <select asp-for="@Model.Estado" class="form-select" id="Estado">
+            <option value="Pendiente">Pendiente</option>
+            <option value="Haciendo">Haciendo</option>
+            <option value="Revisión">Revisión</option>
+            <option value="Finalizada">Finalizada</option>
+        </select>
     </div>
     <div class="form-group">
-        <label asp-for="@Model.Descripcion">Nueva Descripcion de Tarea</label>
-        <input asp-for = "@Model.Descripcion" class="form-control" id="DescTarea" required>
+        <label for="DescTarea" class="fw-bold">Nueva descripción de la tarea</label>
+        <input asp-for="@Model.Descripcion" class="form-control" id="DescTarea" required>
+        <span asp-validation-for="@Model.Descripcion" class="text-danger"></span> 
     </div>
-      <div class="form-group">
-        <label asp-for="@Model.Color">Nuevo color de tarea</label>
-        <input asp-for = "@Model.Color" class="form-control" id="Color" required>
+    <div class="form-group">
+        <label for="Color" class="fw-bold">Nuevo color de la tarea</label>
+        <input asp-for="@Model.Color" class="form-control" id="Color" required>
+        <span asp-validation-for="@Model.Color" class="text-danger"></span> 
     </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary">Actualizar</button>
 </form>

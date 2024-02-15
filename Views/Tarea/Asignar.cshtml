@@ -1,0 +1,17 @@
+@{ 
+    ViewData["Title"] = "Asignar Tarea";
+}
+
+@using tl2_tp10_2023_IvanDMir.ViewModels;
+@model AsTVM;
+
+<form asp-controller="Tarea" asp-action="Asignar">
+    <input hidden asp-for = "@Model.Idtarea">
+    <div class="form-group">
+        <label for="usuario">Usuario al Asignar la Tarea</label>
+        <input asp-for = "@Model.usuario" class="form-control" id="usuario">
+    </div>
+    <button type="submit" class="btn btn-primary">Asignar</button>
+</form>
+
+@section Scripts{<partial name="_ValidationScriptsPartial"/>}
