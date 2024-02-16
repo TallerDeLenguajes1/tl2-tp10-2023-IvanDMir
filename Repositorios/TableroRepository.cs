@@ -165,9 +165,13 @@ public interface ITableroRepositorio {
          public void Delete(int id) {
             string queryText = "DELETE  FROM Tablero WHERE id_Tablero = @id";
             using(SQLiteConnection connection = new SQLiteConnection(cadenaConexion)) {
+                connection.Open();
+                using (SQLiteCommand comando = new SQLiteCommand("PRAGMA  foreign_keys=1;",connection)){
+                        comando.ExecuteNonQuery();
+                }
                 SQLiteCommand query = new SQLiteCommand(queryText, connection);
                 query.Parameters.Add(new SQLiteParameter("@id", id));
-                connection.Open();
+                
                 query.ExecuteNonQuery();
                 connection.Close();
             }

@@ -90,8 +90,12 @@ public interface IUsuarioRepositorio {
             SQLiteConnection connection = new SQLiteConnection(cadenaConexion);
             SQLiteCommand command = connection.CreateCommand();
             command.CommandText = $"DELETE FROM usuario WHERE id = @Id;";
-            command.Parameters.Add(new SQLiteParameter("@Id",id));
             connection.Open();
+            using (SQLiteCommand comando = new SQLiteCommand("PRAGMA  foreign_keys=1;",connection)){
+                        comando.ExecuteNonQuery();
+                }
+      
+            command.Parameters.Add(new SQLiteParameter("@Id",id));
             command.ExecuteNonQuery();
             connection.Close();
     }
