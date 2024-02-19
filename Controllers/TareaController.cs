@@ -105,12 +105,15 @@ public class TareaController : Controller
     public IActionResult Update(UTViewModel tarea) {
         try { 
         if(!ModelState.IsValid) return RedirectToAction("Index");
+        var tareaVieja = repo.GetById(tarea.Id);
         var nuevaTarea = new Tarea() {
+            Id = tarea.Id,
             Nombre = tarea.Nombre,
             Descripcion = tarea.Descripcion,
-            Estado = Estados.Pendiente,
+            Estado = tarea.Estado,
             Color = tarea.Color,
-            IdTablero = tarea.IdTablero
+            IdTablero = tareaVieja.IdTablero,
+            IdUsuarioAsignado = tareaVieja.IdUsuarioAsignado   
         };
         repo.Update(tarea.Id, nuevaTarea);
         return RedirectToAction("Index");
@@ -143,7 +146,6 @@ public class TareaController : Controller
 
     [HttpGet]
     public IActionResult Delete(int id) {
-        if(!esAdmin()) return RedirectToAction("Index");
         repo.Delete(id);
         return RedirectToAction("Index");
     }

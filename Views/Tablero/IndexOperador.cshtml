@@ -9,22 +9,28 @@
 <table class="table table-striped table-dark text-center" style="background-color: #343a40;">
     <thead>
         <tr>
-            <th colspan="3">LISTA DE TABLEROS</th>
+            <th colspan="4">LISTA DE TABLEROS</th>
         </tr>
     </thead>
     <tbody>
         @if(Model.TablerosAsignados.Any()) {
-            <th colspan="3" class="text-center">TABLEROS PROPIOS</th>
+            <th colspan="4" class="text-center">TABLEROS PROPIOS</th>
             <tr>
                 <th scope="col">Nombre</th>
                 <th scope="col">Descripción</th>
                 <th scope="col">ID del Propietario</th>
+                 <th scope="col">Opcion</th>
             </tr>
             @foreach(Tablero tablero in Model.TablerosAsignados) {
                 <tr>
                     <td>@tablero.Nombre</td>
                     <td>@tablero.Descripcion</td>
                     <td>@tablero.IdUsuarioPropietario</td>
+                    <td>
+                        <button class="btn btn-success">
+                            <a asp-controller="Tablero" asp-action="Update" asp-route-id="@tablero.IdTablero" class="badge badge-primary">Actualizar</a>
+                        </button>
+                    </td>
                 </tr>
             }
         }

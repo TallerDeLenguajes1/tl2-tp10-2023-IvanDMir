@@ -1,0 +1,13 @@
+@{
+    ViewData["Title"] = "Error";
+}
+
+<div class="alert alert-danger" role="alert">
+    @ViewBag.ErrorMessage
+</div>
+
+<script>
+    alert("@ViewBag.ErrorMessage");
+    window.location.href = "/Tarea/Index"; 
+</script>
+

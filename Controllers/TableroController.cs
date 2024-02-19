@@ -20,11 +20,12 @@ public class TableroController : Controller
     public IActionResult Index() {
 
              try{
-                var IdUsuarioLogueado = Convert.ToInt32(HttpContext.Session.GetString("Id"));
-            if(!isLogin()){
+                 if(!isLogin()){
                 return RedirectToRoute(new{controller = "Login", action = "Index"});
+               
+           
             }else if(esAdmin()){
-                
+                 var IdUsuarioLogueado = Convert.ToInt32(HttpContext.Session.GetString("Id"));
                 GBViewModel viewTableros = new GBViewModel(repo.GetAll(),repo.GetByUser(IdUsuarioLogueado),repo.GetByTarea(IdUsuarioLogueado),IdUsuarioLogueado);
                 return View(viewTableros);
             }else{
@@ -89,10 +90,8 @@ public class TableroController : Controller
      [HttpGet]
     public IActionResult Update(int id) {
         try{ 
-            if(esAdmin()){
               return View(new UBViewModel(repo.GetById(id)));
-            }
-             return RedirectToRoute(new{controller = "Login", action = "Index"});
+            
         }catch(Exception ex){
             _logger.LogError(ex.ToString());
             return BadRequest();
@@ -106,11 +105,12 @@ public class TableroController : Controller
     public IActionResult Update(UBViewModel tablero) {
         try{ 
         if(!ModelState.IsValid) return RedirectToAction("Index");
+        var viejoTablero =repo.GetById(tablero.Id);
          var newTablero = new Tablero() {
             IdTablero = tablero.Id,
             Nombre = tablero.Nombre,
             Descripcion = tablero.Descripcion,
-            IdUsuarioPropietario = tablero.IdUsuarioPropietario
+            IdUsuarioPropietario = viejoTablero.IdUsuarioPropietario
         };
         repo.Update(newTablero.IdTablero, newTablero);
         return RedirectToAction("Index");
@@ -133,9 +133,9 @@ public class TableroController : Controller
        
     }
 
-      private bool isLogin()
+       private bool isLogin()
     {
-        if (HttpContext.Session != null ){
+        if (HttpContext.Session.GetString("Rol") != null ){
             return true;
         }else{
             return false;

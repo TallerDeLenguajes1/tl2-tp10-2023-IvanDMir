@@ -1,12 +1,13 @@
 @{
     ViewData["Title"] = "Tableros";
+   
 }
 
 @using tl2_tp10_2023_IvanDMir.ViewModels;
 @using tl2_tp10_2023_IvanDMir.repositorios;
 @model GBViewModel;
 
-<table class="table table-striped table-dark text-center" style="background-color: #343a40;">
+<table class="table table-striped table-dark text-center">
     <thead>
         <tr>
             <th colspan="4">LISTA DE TABLEROS</th>
@@ -30,9 +31,9 @@
                         <button class="btn btn-success">
                             <a asp-controller="Tablero" asp-action="Update" asp-route-id="@tablero.IdTablero" class="badge badge-primary">Actualizar</a>
                         </button>
-                        <button class="btn btn-danger">
-                            <a asp-controller="Tablero" asp-action="Delete" asp-route-id="@tablero.IdTablero" class="badge badge-primary">Borrar</a>
-                        </button>
+                            <button class="btn btn-success">
+                                <a asp-controller="Tablero" asp-action="Delete" asp-route-id="@tablero.IdTablero" class="badge badge-primary">Borrar</a>
+                            </button>
                     </td>
                 </tr>
             }
@@ -51,12 +52,12 @@
                     <td>@tablero.Descripcion</td>
                     <td>@tablero.IdUsuarioPropietario</td>
                     <td>
-                        <button class="btn btn-success">
-                            <a asp-controller="Tablero" asp-action="Update" asp-route-id="@tablero.IdTablero" class="badge badge-primary">Actualizar</a>
-                        </button>
-                        <button class="btn btn-danger">
-                            <a asp-controller="Board" asp-action="Delete" asp-route-id="@tablero.IdTablero" class="badge badge-primary">Borrar</a>
-                        </button>
+                            <button class="btn btn-success">
+                                <a asp-controller="Tablero" asp-action="Update" asp-route-id="@tablero.IdTablero" class="badge badge-primary">Actualizar</a>
+                            </button>
+                            <button class="btn btn-success">
+                                <a asp-controller="Tablero" asp-action="Delete" asp-route-id="@tablero.IdTablero" class="badge badge-primary">Borrar</a>
+                            </button>
                     </td>
                 </tr>
             }
@@ -64,6 +65,7 @@
         @if(Model.TodosLosTableros.Any()) {
             <th colspan="4" class="text-center">TODOS LOS TABLEROS</th>
             <tr>
+
                 <th scope="col">Nombre</th>
                 <th scope="col">Descripcion</th>
                 <th scope="col">ID del Propietario</th>
@@ -78,7 +80,7 @@
                         <button class="btn btn-success">
                             <a asp-controller="Tablero" asp-action="Update" asp-route-id="@tablero.IdTablero" class="badge badge-primary">Actualizar</a>
                         </button>
-                        <button class="btn btn-danger">
+                        <button class="btn btn-success">
                             <a asp-controller="Tablero" asp-action="Delete" asp-route-id="@tablero.IdTablero" class="badge badge-primary">Borrar</a>
                         </button>
                     </td>
@@ -86,4 +88,5 @@
             }
         }
     </tbody>
+    
 </table>
