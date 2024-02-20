@@ -13,6 +13,7 @@ public class Tarea{
     private string descripcion;
     private string color;
     private int idUsuarioAsignado;
+    private int IdPropietario;
 
      public int Id
     {
@@ -54,5 +55,9 @@ public class Tarea{
     {
         get { return idUsuarioAsignado; }
         set { idUsuarioAsignado = value; }
+    }
+    public int idPropietario{
+        get { return IdPropietario;}
+        set { IdPropietario = value;}
     }
 }

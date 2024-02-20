@@ -67,13 +67,15 @@ public class TareaController : Controller
     [HttpPost]
     public IActionResult Add(ATViewModel tarea) {
         try { 
-        if(!ModelState.IsValid) return RedirectToAction("Index");
+        if(!ModelState.IsValid) return View(tarea);
         var nuevaTarea = new Tarea() {
             Nombre = tarea.Nombre,
             Descripcion = tarea.Descripcion,
             Estado = Estados.Pendiente,
             Color = tarea.Color,
-            IdTablero = tarea.IdTablero
+            IdTablero = tarea.IdTablero,
+            idPropietario = Convert.ToInt32(HttpContext.Session.GetString("Id")),
+            IdUsuarioAsignado = 0
         };
         repo.Crear(nuevaTarea);
         
@@ -104,16 +106,17 @@ public class TareaController : Controller
     [HttpPost]
     public IActionResult Update(UTViewModel tarea) {
         try { 
-        if(!ModelState.IsValid) return RedirectToAction("Index");
-        var tareaVieja = repo.GetById(tarea.Id);
+            var tareaVieja = repo.GetById(tarea.Id);
+        if(!ModelState.IsValid)return View(tarea);
         var nuevaTarea = new Tarea() {
-            Id = tarea.Id,
             Nombre = tarea.Nombre,
             Descripcion = tarea.Descripcion,
             Estado = tarea.Estado,
             Color = tarea.Color,
-            IdTablero = tareaVieja.IdTablero,
-            IdUsuarioAsignado = tareaVieja.IdUsuarioAsignado   
+            IdTablero = tarea.IdTablero,
+            idPropietario = Convert.ToInt32(HttpContext.Session.GetString("Id")),
+            IdUsuarioAsignado = tareaVieja.IdUsuarioAsignado
+            
         };
         repo.Update(tarea.Id, nuevaTarea);
         return RedirectToAction("Index");
@@ -126,14 +129,14 @@ public class TareaController : Controller
     public IActionResult Asignar(int TareaId) {
         if (!isLogin()) return RedirectToRoute(new { controller = "Login", action = "Index"});
         if (!esAdmin()) return RedirectToAction("Index");
-        return View(new AsTVM(TareaId)); 
+        return View(new AsTVM(TareaId,usuarioRepo.GetAll())); 
     }       
 
     [HttpPost]
     public IActionResult Asignar(AsTVM tarea) {
         if(!ModelState.IsValid) return RedirectToAction("Index");
         try {
-            var usuarioElegido = usuarioRepo.GetByUsuario(tarea.usuario);
+            var usuarioElegido = usuarioRepo.GetById(tarea.usuario);
             repo.Asignar(usuarioElegido.id_usuario, tarea.Idtarea);
         } catch (Exception e) {
             _logger.LogError(e.ToString());
@@ -146,6 +149,7 @@ public class TareaController : Controller
 
     [HttpGet]
     public IActionResult Delete(int id) {
+        if(!esAdmin()) return RedirectToAction("Index");
         repo.Delete(id);
         return RedirectToAction("Index");
     }

@@ -20,7 +20,7 @@ public class UsuarioController : Controller
     {
         try{ 
        if(!isLogin()) return RedirectToRoute(new { controller = "Login", action = "Index"});
-        if(!esAdmin()) return RedirectToRoute(new {controller = "Tarea", action = "Index"});
+       if(!esAdmin()) return RedirectToRoute(new {controller = "Tarea", action = "Index"});
              return View(new LUViewModel(repo.GetAll()));
         }catch(Exception ex){
             _logger.LogError(ex.ToString());
@@ -28,31 +28,39 @@ public class UsuarioController : Controller
         }
     }
    [HttpGet]
-    public IActionResult Add(){
+    public IActionResult Add(string error= null){
         try{ 
         if(!isLogin()) return RedirectToRoute(new { controller = "Login", action = "Index"});
         if(!esAdmin()) return RedirectToAction("Index");
-        return View(new AUViewModel());
+        var usuario = new AUViewModel() {
+            Error = error
+        };
+        return View(usuario);
         }catch(Exception ex){
             _logger.LogError(ex.ToString());
             return BadRequest();
         }
     }
     [HttpPost]
-    public IActionResult Add(AUViewModel user) {
+    public IActionResult Add(AUViewModel usuario) {
         try{ 
         if(!esAdmin()) return RedirectToAction("Index");
+        if(!ModelState.IsValid) return View(usuario);
         var Nuevo = new Usuario() {
-            nombre_De_Usuario = user.Nombre,
-            contrasena = user.Contrasena,
-            rol = user.Rol
+            nombre_De_Usuario = usuario.Nombre,
+            contrasena = usuario.Contrasena,
+            rol = usuario.Rol
         };
+        if (repo.YaExiste(Nuevo)){
+            usuario.Error = "El usuario Ya existe, elija otro";
+            return RedirectToAction("Add", usuario);
+        }
         repo.Crear(Nuevo);
         return RedirectToAction("Index");
         }catch(Exception ex){
             _logger.LogError(ex.ToString());
-            return BadRequest();
-        }
+            return RedirectToAction("Add");
+        };
     }
 
   [HttpGet]
@@ -69,14 +77,14 @@ public class UsuarioController : Controller
  [HttpPost]
     public IActionResult Update(UUViewModel usuarioNuevo) {
         try { 
-        if(!ModelState.IsValid) return RedirectToAction("Index");
+        if(!ModelState.IsValid) return View(usuarioNuevo);
          var Nuevo = new Usuario() {
             id_usuario = usuarioNuevo.Id,
             nombre_De_Usuario = usuarioNuevo.Nombre,
             contrasena = usuarioNuevo.Contrasena,
             rol = usuarioNuevo.Rol,
         };
-        
+    
         repo.Modificar(Nuevo.id_usuario, Nuevo);
         return RedirectToAction("Index");
         }catch(Exception ex){

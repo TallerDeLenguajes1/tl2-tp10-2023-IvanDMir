@@ -9,36 +9,15 @@
     <div class="mb-3">
         <label for="usuario" class="form-label">Nuevo nombre de usuario</label>
         <input asp-for="@Model.Nombre" class="form-control" id="usuario" required>
-        <div class="invalid-feedback">
-            Por favor ingrese un nuevo nombre de usuario.
-        </div>
+        <span asp-validation-for="@Model.Nombre" class="text-danger"></span> 
     </div>
     <div class="mb-3">
         <label for="nuevapassword" class="form-label">Nueva contraseña</label>
         <input type="password" asp-for="@Model.Contrasena" class="form-control" id="nuevapassword" required>
-        <div class="invalid-feedback">
-            Por favor ingrese una nueva contraseña.
-        </div>
+        <span asp-validation-for="@Model.Contrasena" class="text-danger"></span> 
+       
     </div>
     <button type="submit" class="btn btn-primary">Actualizar Usuario</button>
 </form>
 
-@section Scripts {
-    <script>
-        (function () {
-            'use strict'
-            var forms = document.querySelectorAll('.needs-validation')
-            Array.prototype.slice.call(forms)
-                .forEach(function (form) {
-                    form.addEventListener('submit', function (event) {
-                        if (!form.checkValidity()) {
-                            event.preventDefault()
-                            event.stopPropagation()    // Con esto puedo mostrar los carteles de forma dinamica
-                        }
-
-                        form.classList.add('was-validated')
-                    }, false)
-                })
-        })()
-    </script>
-}
+@section Scripts{<partial name="_ValidationScriptsPartial"/>}

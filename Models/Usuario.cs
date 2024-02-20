@@ -11,6 +11,7 @@ public class Usuario{
     private string Nombre_De_Usuario;
     private string Contrasena;
     private Roles Rol;
+  
 
      public int id_usuario
     {
@@ -32,6 +33,7 @@ public class Usuario{
          get { return Rol; }
         set { Rol = value; }
     }
+    
   
 
 }

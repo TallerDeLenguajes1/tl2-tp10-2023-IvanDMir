@@ -12,4 +12,7 @@ namespace tl2_tp10_2023_IvanDMir.ViewModels;
         [PasswordPropertyText]
         [Display(Name = "Contraseña")]
         public string Contrasena {get;set;}
+        public string Error { get; set; }
+
+        public LoginVM() {}
     }

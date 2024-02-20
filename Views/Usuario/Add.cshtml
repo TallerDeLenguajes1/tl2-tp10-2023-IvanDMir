@@ -9,50 +9,26 @@
     <div class="mb-3">
         <label for="nombreDeUsuario" class="form-label">Nombre de usuario</label>
         <input asp-for="@Model.Nombre" class="form-control" id="nombreDeUsuario" required>
-        <div class="invalid-feedback">
-            Por favor ingrese un nombre de usuario válido. @* Esto sirve para devolver en caso de que falle *@
-        </div>
+        <span asp-validation-for="@Model.Nombre" class="text-danger"></span> 
+           @if(!string.IsNullOrEmpty(Model.Error)) {
+                <p class="text-danger text-center">@Model.Error</p>
+            }
     </div>
     <div class="mb-3">
         <label for="contrasena" class="form-label">Contraseña</label>
         <input type="password" asp-for="@Model.Contrasena" class="form-control" id="contrasena" required>
-        <div class="invalid-feedback">
-            Por favor ingrese una contraseña válida.
-        </div>
+        <span asp-validation-for="@Model.Contrasena" class="text-danger"></span> 
     </div>
     <div class="mb-3">
         <label for="rol" class="form-label">Rol Elegido</label>
         <select asp-for="@Model.Rol" class="form-select" required>
-            <option value="">Seleccione un rol</option>
             <option value="0">Admin</option>
             <option value="1">Operador</option>
         </select>
-        <div class="invalid-feedback">
-            Por favor seleccione un rol.
-        </div>
+        <span asp-validation-for="@Model.Rol" class="text-danger"></span> 
+        
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>
 
-@section Scripts {
-    <script>
-      
-        (function () {
-            'use strict'
-
-            var forms = document.querySelectorAll('.needs-validation')
-
-            Array.prototype.slice.call(forms)
-                .forEach(function (form) {
-                    form.addEventListener('submit', function (event) {
-                        if (!form.checkValidity()) {
-                            event.preventDefault()
-                            event.stopPropagation()
-                        }
-
-                        form.classList.add('was-validated')
-                    }, false)
-                })
-        })()
-    </script>
-}
+@section Scripts{<partial name="_ValidationScriptsPartial"/>}

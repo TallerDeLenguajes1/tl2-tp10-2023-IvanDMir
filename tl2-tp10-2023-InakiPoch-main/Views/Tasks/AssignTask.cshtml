@@ -1,0 +1,26 @@
+@{ 
+    ViewData["Title"] = "Asignar Tarea";
+}
+
+@using tl2_tp10_2023_InakiPoch.ViewModels
+@model AssignTaskViewModel
+
+<div class="container">
+    <div class="row col-md-6 mx-auto" style="margin-top: -150px;">
+        <h1>@ViewData["Title"]</h1>
+        <form asp-controller="Tasks" asp-action="AssignTask">
+            <input hidden asp-for = "@Model.TaskId">
+            <div class="form-group">
+                <label for="username">Usuario al Asignar la Tarea</label>
+                <select asp-for="@Model.User" class="form-select">
+                    @foreach(User user in Model.UsersAvailable) {
+                        <option value="@user.Id">@user.Username</option>
+                    }  
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary mx-auto mt-3">Asignar</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts{<partial name="_ValidationScriptsPartial"/>}

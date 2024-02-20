@@ -17,9 +17,13 @@ public class LoginController : Controller
     }
 
     [HttpGet]
-    public IActionResult Index()
+    public IActionResult Index( string error = null)
+
     {
-        return View(new LoginVM());
+         var usuario = new LoginVM() {
+                Error = error
+            };
+        return View(usuario);
     }
 
      [HttpPost]
@@ -30,11 +34,12 @@ public class LoginController : Controller
             _logger.LogInformation("Usuario " + UsuarioLogueado.nombre_De_Usuario + " Logueado correctamente");
             return RedirectToRoute(new { controller = "Usuario", action = "Index" });
         } catch (Exception e) {
+            login.Error = "Usuario o Contraseña Incorrectos";
             _logger.LogError(e.ToString());
             _logger.LogWarning(
                 "Intento de loguear Invalido - usuario: "+ login.Nombre + "/Contraseña: " + login.Contrasena
             );
-            return RedirectToAction("Index");
+            return View("Index",login);
         }
     }
       [HttpGet]

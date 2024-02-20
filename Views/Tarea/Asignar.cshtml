@@ -8,8 +8,12 @@
 <form asp-controller="Tarea" asp-action="Asignar">
     <input hidden asp-for = "@Model.Idtarea">
     <div class="form-group">
-        <label for="usuario">Usuario al Asignar la Tarea</label>
-        <input asp-for = "@Model.usuario" class="form-control" id="usuario">
+        <select asp-for="@Model.usuario" class="form-select">
+            <label asp-for="@Model.usuario">Usuario al Asignar la Tarea</label>
+                    @foreach(Usuario usuario in Model.UsuariosDisponibles) {
+                        <option value="@usuario.id_usuario">@usuario.nombre_De_Usuario</option>
+                    }  
+                </select>
     </div>
     <button type="submit" class="btn btn-primary">Asignar</button>
 </form>

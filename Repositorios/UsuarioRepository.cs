@@ -14,6 +14,7 @@ public interface IUsuarioRepositorio {
     Usuario GetByUsuario(string nombreUsuario);
     void eliminar(int id);
     Usuario Existe(string usuario, string contrasena);
+    bool YaExiste(Usuario usuario);
     
 }
 
@@ -169,6 +170,21 @@ public interface IUsuarioRepositorio {
         }
         return existencia;
          }
+        public bool YaExiste(Usuario usuario){
+        string queryText = "SELECT * FROM usuario WHERE nombre_de_usuario = @usuario";
+        bool existencia = false;
+        using(SQLiteConnection connection = new SQLiteConnection(cadenaConexion)) {
+            SQLiteCommand query = new SQLiteCommand(queryText, connection);
+            query.Parameters.Add(new SQLiteParameter("@usuario", usuario.nombre_De_Usuario));
+            connection.Open();
+            using(SQLiteDataReader reader = query.ExecuteReader()) {
+                if(reader.Read() ) {
+                    existencia = true;
+                }
+            }
+            connection.Close();
+        }
+        return existencia;
     }
-
-}
+          }
+    }

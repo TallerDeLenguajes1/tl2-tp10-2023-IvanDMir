@@ -22,7 +22,7 @@
                 <th scope="col">Color</th>
                 <th scope="col">Estado</th>
                 <th scope="col">Tablero al que pertenece</th>
-                <th scope="col">Opcion</th>
+                <th scope="col">usuario asignado</th>
             </tr>
             @foreach(Tarea tareas in Model.TareasPropias) {
                 <tr>
@@ -32,15 +32,7 @@
                     <td>@tareas.Color</td>
                     <td>@Enum.GetName(tareas.Estado)</td>
                     <td>@tareas.IdTablero</td>
-                       <td>
-                        <button class="btn btn-success">
-                            <a asp-controller="Tarea" asp-action="Update" asp-route-id="@tareas.Id" class="badge badge-primary" style="background-color: #28a745;">Actualizar</a>
-                        </button>
-                            <button class="btn btn-danger">
-                                <a asp-controller="Tarea" asp-action="Delete" asp-route-id="@tareas.Id" class="badge badge-primary" style="background-color: #dc3545;">Borrar</a>
-                            </button>
-                        
-                    </td>
+                    <td>@tareas.IdUsuarioAsignado</td>
                 </tr>
             }
         }
@@ -53,7 +45,8 @@
                 <th scope="col">Color</th>
                 <th scope="col">Estado</th>
                 <th scope="col">Tablero al que pertenece</th>
-                <th scope="col">Opcion</th>
+                <th scope="col">usuario asignado</th>
+                
             </tr>
             @foreach(Tarea tareas in Model.TareasAsignadas) {
                 <tr>
@@ -63,15 +56,7 @@
                     <td>@tareas.Color</td>
                     <td>@Enum.GetName(tareas.Estado)</td>
                     <td>@tareas.IdTablero</td>
-                    <td>
-                        <button class="btn btn-success">
-                            <a asp-controller="Tarea" asp-action="Update" asp-route-id="@tareas.Id" class="badge badge-primary" style="background-color: #28a745;">Actualizar</a>
-                        </button>
-                            <button class="btn btn-danger">
-                                <a asp-controller="Tarea" asp-action="Delete" asp-route-id="@tareas.Id" class="badge badge-primary" style="background-color: #dc3545;">Borrar</a>
-                            </button>
-                        
-                    </td>
+                    <td>@tareas.IdUsuarioAsignado</td>
                 </tr>
             }
         }
