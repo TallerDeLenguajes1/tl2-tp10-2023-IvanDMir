@@ -49,6 +49,8 @@ public interface ITareasRepositorio {
                         tarea.Descripcion = reader["descripcion"] == DBNull.Value ? null : reader["descripcion"].ToString();
                         tarea.Color = reader["color"] == DBNull.Value ? null : reader["color"].ToString();
                         tarea.IdUsuarioAsignado = Convert.ToInt32(reader["Id_Usuario_asignado"]);
+                        tarea.NombreTablero = ObtenerTablero(tarea.IdTablero);
+                        tarea.nombreAsignado = ObtenerUsuarioAsignado(tarea.IdUsuarioAsignado);
                         tareas.Add(tarea);
                     }
                 }
@@ -113,7 +115,10 @@ public interface ITareasRepositorio {
                         Estado = (Estados)Convert.ToInt32(reader["estado"]),
                         Descripcion = reader["descripcion"].ToString(),
                         Color = reader["color"].ToString(),
-                        IdUsuarioAsignado = Convert.ToInt32(reader["id_usuario_asignado"])
+                        IdUsuarioAsignado = Convert.ToInt32(reader["id_usuario_asignado"]),
+                        nombreAsignado = ObtenerUsuarioAsignado(Convert.ToInt32(reader["id_usuario_asignado"])),
+                        NombreTablero = ObtenerTablero(Convert.ToInt32(reader["id_tablero"]))
+
                     };
                     tareas.Add(tarea);
                 }
@@ -138,6 +143,8 @@ public interface ITareasRepositorio {
                         tarea.Descripcion = reader["descripcion"] == DBNull.Value ? null : reader["descripcion"].ToString();
                         tarea.Color = reader["color"] == DBNull.Value ? null : reader["color"].ToString();
                         tarea.IdUsuarioAsignado = Convert.ToInt32(reader["Id_Usuario_asignado"]);
+                        tarea.NombreTablero = ObtenerTablero(tarea.IdTablero);
+                        tarea.nombreAsignado = ObtenerUsuarioAsignado(tarea.IdUsuarioAsignado);
                     }
                 }
                 connection.Close();
@@ -165,7 +172,9 @@ public interface ITareasRepositorio {
                         Estado = (Estados)Convert.ToInt32(reader["estado"]),
                         Descripcion = reader["descripcion"].ToString(),
                         Color = reader["color"].ToString(),
-                        IdUsuarioAsignado =Convert.ToInt32(reader["id_usuario_asignado"]) 
+                        IdUsuarioAsignado =Convert.ToInt32(reader["id_usuario_asignado"]),
+                        nombreAsignado = ObtenerUsuarioAsignado(Convert.ToInt32(reader["id_usuario_asignado"])),
+                        NombreTablero = ObtenerTablero(Convert.ToInt32(reader["id_tablero"]))
                     };
                     tareas.Add(tarea);
                 }
@@ -192,8 +201,10 @@ public interface ITareasRepositorio {
                             tarea.Estado = (Estados) Convert.ToInt32(reader["estado"]);
                             tarea.Nombre = reader["nombre"].ToString();
                             tarea.Descripcion = reader["descripcion"] == DBNull.Value ? null : reader["descripcion"].ToString();
-                            tarea.Color = reader["color"] == DBNull.Value ? null : reader["color"].ToString();
+                            tarea.Color = reader["color"].ToString();
                             tarea.IdUsuarioAsignado = Convert.ToInt32(reader["Id_Usuario_asignado"]);
+                             tarea.NombreTablero = ObtenerTablero(tarea.IdTablero);
+                        tarea.nombreAsignado = ObtenerUsuarioAsignado(tarea.IdUsuarioAsignado);
                             
                             Tareas.Add(tarea);
                     }
@@ -226,8 +237,21 @@ public interface ITareasRepositorio {
             connection.Close();
         }
     }
+    private string ObtenerUsuarioAsignado(int id){ 
+        UsuarioRepositorio repo = new UsuarioRepositorio(cadenaConexion);
+        Usuario usu = repo.GetById(id);
+        return usu.nombre_De_Usuario;
+    }
+    private string ObtenerTablero(int id){ 
+        TableroRepositorio repo = new TableroRepositorio(cadenaConexion);
+        Tablero tab = repo.GetById(id);
+        return tab.Nombre;
+
+
+    
+    }
          
 
-
     }
+    
 }

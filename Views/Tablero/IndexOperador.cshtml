@@ -18,13 +18,13 @@
             <tr>
                 <th scope="col">Nombre</th>
                 <th scope="col">Descripción</th>
-                <th scope="col">ID del Propietario</th>
+                <th scope="col">nombre del Propietario</th>
             </tr>
             @foreach(Tablero tablero in Model.TablerosAsignados) {
                 <tr>
                     <td>@tablero.Nombre</td>
                     <td>@tablero.Descripcion</td>
-                    <td>@tablero.IdUsuarioPropietario</td>
+                    <td>@tablero.NombreUsuarioPropietario</td>
                 </tr>
             }
         }
@@ -33,13 +33,13 @@
             <tr>
                 <th scope="col">Nombre</th>
                 <th scope="col">Descripción</th>
-                <th scope="col">ID del Propietario</th>
+                <th scope="col">nombre del Propietario</th>
             </tr>
             @foreach(Tablero tablero in Model.TablerosConTareas) {
                 <tr>
                     <td>@tablero.Nombre</td>
                     <td>@tablero.Descripcion</td>
-                    <td>@tablero.IdUsuarioPropietario</td>
+                    <td>@tablero.NombreUsuarioPropietario</td>
                 </tr>
             }
         }

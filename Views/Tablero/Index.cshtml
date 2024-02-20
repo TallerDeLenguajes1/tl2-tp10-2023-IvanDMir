@@ -18,14 +18,14 @@
             <tr>
                 <th scope="col">Nombre</th>
                 <th scope="col">Descripcion</th>
-                <th scope="col">ID del Propietario</th>
+                <th scope="col">nombre del Propietario</th>
                 <th scope="col">Opcion</th>
             </tr>
             @foreach(Tablero tablero in Model.TablerosAsignados) {
                 <tr>
                     <td>@tablero.Nombre</td>
                     <td>@tablero.Descripcion</td>
-                    <td>@tablero.IdUsuarioPropietario</td>
+                    <td>@tablero.NombreUsuarioPropietario</td>
                     <td>
                         <button class="btn btn-success">
                             <a asp-controller="Tablero" asp-action="Update" asp-route-id="@tablero.IdTablero" class="badge badge-primary">Actualizar</a>
@@ -42,20 +42,20 @@
             <tr>
                 <th scope="col">Nombre</th>
                 <th scope="col">Descripcion</th>
-                <th scope="col">ID del Propietario</th>
+                <th scope="col">nombre del Propietario</th>
                 <th scope="col">Opcion</th>
             </tr>
             @foreach(Tablero tablero in Model.TablerosConTareas) {
                 <tr>
                     <td>@tablero.Nombre</td>
                     <td>@tablero.Descripcion</td>
-                    <td>@tablero.IdUsuarioPropietario</td>
+                    <td>@tablero.NombreUsuarioPropietario</td>
                     <td>
                         <button class="btn btn-success">
                             <a asp-controller="Tablero" asp-action="Update" asp-route-id="@tablero.IdTablero" class="badge badge-primary">Actualizar</a>
                         </button>
                         <button class="btn btn-danger">
-                            <a asp-controller="Board" asp-action="Delete" asp-route-id="@tablero.IdTablero" class="badge badge-primary">Borrar</a>
+                            <a asp-controller="Tablero" asp-action="Delete" asp-route-id="@tablero.IdTablero" class="badge badge-primary">Borrar</a>
                         </button>
                     </td>
                 </tr>
@@ -66,14 +66,14 @@
             <tr>
                 <th scope="col">Nombre</th>
                 <th scope="col">Descripcion</th>
-                <th scope="col">ID del Propietario</th>
+                <th scope="col">nombre del Propietario</th>
                 <th scope="col">Opcion</th>
             </tr>
             @foreach(Tablero tablero in Model.TodosLosTableros) {
                 <tr>
                     <td>@tablero.Nombre</td>
                     <td>@tablero.Descripcion</td>
-                    <td>@tablero.IdUsuarioPropietario</td>
+                    <td>@tablero.NombreUsuarioPropietario</td>
                     <td>
                         <button class="btn btn-success">
                             <a asp-controller="Tablero" asp-action="Update" asp-route-id="@tablero.IdTablero" class="badge badge-primary">Actualizar</a>

@@ -32,8 +32,14 @@
                     <td>@tareas.Descripcion</td>
                     <td>@tareas.Color</td>
                     <td>@Enum.GetName(tareas.Estado)</td>
-                    <td>@tareas.IdTablero</td>
-                    <td>@tareas.IdUsuarioAsignado</td>
+                    <td>@tareas.NombreTablero</td>
+                     @if (tareas.IdUsuarioAsignado == 0) {
+                        <td> 
+                            <p> Sin Asignar</p>
+                        </td>
+                    }else {
+                        <td>@tareas.nombreAsignado</td>
+                    }
                     <td>
                         <button class="btn btn-success">
                             <a asp-controller="Tarea" asp-action="Update" asp-route-id="@tareas.Id" class="badge badge-primary" style="background-color: #28a745;">Actualizar</a>
@@ -67,8 +73,14 @@
                     <td>@tareas.Descripcion</td>
                     <td>@tareas.Color</td>
                     <td>@Enum.GetName(tareas.Estado)</td>
-                    <td>@tareas.IdTablero</td>
-                    <td>@tareas.IdUsuarioAsignado</td>
+                    <td>@tareas.NombreTablero</td>
+                    @if (tareas.IdUsuarioAsignado == 0) {
+                        <td> 
+                            <p> Sin Asignar</p>
+                        </td>
+                    }else {
+                        <td>@tareas.nombreAsignado</td>
+                    }
                     <td>
                         <button class="btn btn-success">
                             <a asp-controller="Tarea" asp-action="Update" asp-route-id="@tareas.Id" class="badge badge-primary" style="background-color: #28a745;">Actualizar</a>
@@ -99,8 +111,14 @@
                     <td>@tareas.Descripcion</td>
                     <td>@tareas.Color</td>
                     <td>@Enum.GetName(tareas.Estado)</td>
-                    <td>@tareas.IdTablero</td>
-                    <td>@tareas.IdUsuarioAsignado</td>
+                    <td>@tareas.NombreTablero</td>
+                    @if (tareas.IdUsuarioAsignado == 0) {
+                        <td> 
+                            <p> Sin Asignar</p>
+                        </td>
+                    }else {
+                        <td>@tareas.nombreAsignado</td>
+                    }
                     <td>
                         <button class="btn btn-success">
                             <a asp-controller="Tarea" asp-action="Update" asp-route-id="@tareas.Id" class="badge badge-primary" style="background-color: #28a745;">Actualizar</a>

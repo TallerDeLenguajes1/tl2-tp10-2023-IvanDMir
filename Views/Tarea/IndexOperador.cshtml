@@ -31,8 +31,14 @@
                     <td>@tareas.Descripcion</td>
                     <td>@tareas.Color</td>
                     <td>@Enum.GetName(tareas.Estado)</td>
-                    <td>@tareas.IdTablero</td>
-                    <td>@tareas.IdUsuarioAsignado</td>
+                    <td>@tareas.NombreTablero</td>
+                     @if (tareas.IdUsuarioAsignado == 0) {
+                        <td> 
+                            <p> Sin Asignar</p>
+                        </td>
+                    }else {
+                        <td>@tareas.nombreAsignado</td>
+                    }
                 </tr>
             }
         }
@@ -55,8 +61,14 @@
                     <td>@tareas.Descripcion</td>
                     <td>@tareas.Color</td>
                     <td>@Enum.GetName(tareas.Estado)</td>
-                    <td>@tareas.IdTablero</td>
-                    <td>@tareas.IdUsuarioAsignado</td>
+                    <td>@tareas.NombreTablero</td>
+                     @if (tareas.IdUsuarioAsignado == 0) {
+                        <td> 
+                            <p> Sin Asignar</p>
+                        </td>
+                    }else {
+                        <td>@tareas.nombreAsignado</td>
+                    }
                 </tr>
             }
         }

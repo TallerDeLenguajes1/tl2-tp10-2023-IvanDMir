@@ -9,11 +9,14 @@ public class TableroController : Controller
 {
     private readonly ILogger<TableroController> _logger;
     ITableroRepositorio repo;
+    private IUsuarioRepositorio usuarioRepo;
 
-    public TableroController(ILogger<TableroController> logger,ITableroRepositorio tableroRepositorio)
+
+    public TableroController(ILogger<TableroController> logger,ITableroRepositorio tableroRepositorio, IUsuarioRepositorio UsuarioRepo)
     {
         _logger = logger;
         repo = tableroRepositorio;
+        usuarioRepo = UsuarioRepo;
     }
 
       [HttpGet]
@@ -54,12 +57,15 @@ public class TableroController : Controller
     }
 
     [HttpGet]
-    public IActionResult Add(){
+    public IActionResult Add(string error=null){
         try{ 
             if(!isLogin()){
                 return RedirectToRoute(new{controller = "Login", action = "Index"});
             }
-           return View(new ABViewModel(Convert.ToInt32(HttpContext.Session.GetString("Id"))));
+            var tablero = new ABViewModel(Convert.ToInt32(HttpContext.Session.GetString("Id"))){
+                Error= error
+            };
+           return View(tablero);
         }
         catch (Exception ex){
             _logger.LogError(ex.ToString());
@@ -70,13 +76,11 @@ public class TableroController : Controller
     [HttpPost]
     public IActionResult Add(ABViewModel tablero) {
         try {
-
-        
         if(!ModelState.IsValid) return View(tablero);
         var newTablero = new Tablero() {
             Nombre = tablero.Nombre,
             Descripcion = tablero.Descripcion,
-            IdUsuarioPropietario = tablero.IdUsuarioPropietario
+            IdUsuarioPropietario = tablero.IdUsuarioPropietario,
         };
         repo.Crear(newTablero);
         return RedirectToAction("Index");
@@ -122,7 +126,7 @@ public class TableroController : Controller
      [HttpGet]
     public IActionResult Delete(int id) {
         try{
-            if(!ModelState.IsValid || !esAdmin()) return RedirectToAction("Index");
+            if(!esAdmin()) return RedirectToAction("Index");
              repo.Delete(id);
             return RedirectToAction("Index");
         }catch(Exception ex){

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Data.SQLite;
 
 
-namespace tl2_tp10_2023_IvanDMir.repositorios{
+namespace tl2_tp10_2023_IvanDMir.repositorios;
 
 public interface ITableroRepositorio {
     void Crear(Tablero Tablero);
@@ -16,6 +16,7 @@ public interface ITableroRepositorio {
     List<Tablero> GetByUser(int Id);
     List<Tablero> GetByTarea(int Id);
     void Delete(int id);
+    bool ExisteTablero(Tablero tablero) ;
 }
 
     public class TableroRepositorio: ITableroRepositorio{
@@ -61,6 +62,7 @@ public interface ITableroRepositorio {
                         tablero1.Nombre = reader["nombre"].ToString();
                         tablero1.Descripcion = reader["descripcion"].ToString();
                         tablero1.IdUsuarioPropietario =Convert.ToInt32(reader["id_usuario_propietario"]);
+                        tablero1.NombreUsuarioPropietario=ObtenerUsuario(tablero1.IdUsuarioPropietario);
                         Tableros.Add(tablero1);
                     }
                 }
@@ -99,6 +101,7 @@ public interface ITableroRepositorio {
                         tablero.Nombre = reader["nombre"].ToString();
                         tablero.Descripcion = reader["descripcion"] == DBNull.Value ? null : reader["descripcion"].ToString();
                         tablero.IdUsuarioPropietario = Convert.ToInt32(reader["id_usuario_propietario"]);
+                        tablero.NombreUsuarioPropietario=ObtenerUsuario(tablero.IdUsuarioPropietario);
                     }
                 }
                 connection.Close();
@@ -122,6 +125,7 @@ public interface ITableroRepositorio {
                             tablero1.Nombre = reader["nombre"].ToString();
                             tablero1.Descripcion =reader["descripcion"].ToString();
                             tablero1.IdUsuarioPropietario = Convert.ToInt32(reader["id_usuario_propietario"]);
+                            tablero1.NombreUsuarioPropietario=ObtenerUsuario(tablero1.IdUsuarioPropietario);
                         
                         tableros.Add(tablero1);
                     }
@@ -148,6 +152,7 @@ public interface ITableroRepositorio {
                         Nombre = reader["nombre"].ToString(),
                         Descripcion = reader["descripcion"].ToString(),
                         IdUsuarioPropietario = Convert.ToInt32(reader["id_usuario_propietario"]),
+                        NombreUsuarioPropietario=ObtenerUsuario(Convert.ToInt32(reader["id_usuario_propietario"]))
                     };
                     tableros.Add(tablero);
                 }
@@ -176,7 +181,30 @@ public interface ITableroRepositorio {
                 connection.Close();
             }
          }
+          public bool ExisteTablero(Tablero tablero ) {
+        string queryText = "SELECT nombre FROM Tablero WHERE nombre = @Nombre";
+        bool exists;
+        using(SQLiteConnection connection = new SQLiteConnection(cadenaConexion)) {
+        SQLiteCommand query = new SQLiteCommand(queryText, connection);
+            query.Parameters.Add(new SQLiteParameter("@Nombre", tablero.Nombre));
+            connection.Open();
+            using(SQLiteDataReader reader = query.ExecuteReader()) {
+                exists = reader.Read();
+            }
+            connection.Close();
+        }
+        return exists;
     }
+    
+    private string ObtenerUsuario(int id){ 
+        UsuarioRepositorio repo = new UsuarioRepositorio(cadenaConexion);
+        Usuario usu = repo.GetById(id);
+        return usu.nombre_De_Usuario;
 
 
-}
+    
+    }
+    }
+    
+    
+

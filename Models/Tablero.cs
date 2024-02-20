@@ -4,6 +4,7 @@ namespace tl2_tp10_2023_IvanDMir.Models;
     private string nombre;
     private string descripcion;
     private int id_usuario_propietario;
+    private string nombre_usuario_propietario;
 
      public int IdTablero
     {
@@ -27,5 +28,10 @@ namespace tl2_tp10_2023_IvanDMir.Models;
     {
         get { return id_usuario_propietario; }
         set { id_usuario_propietario = value; }
+    }
+    public string NombreUsuarioPropietario{
+         get { return nombre_usuario_propietario; }
+        set { nombre_usuario_propietario = value; }
+
     }
 }

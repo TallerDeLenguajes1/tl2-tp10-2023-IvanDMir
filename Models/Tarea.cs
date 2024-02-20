@@ -14,6 +14,8 @@ public class Tarea{
     private string color;
     private int idUsuarioAsignado;
     private int IdPropietario;
+    private string NombreAsignado;
+    private string nombreTablero;
 
      public int Id
     {
@@ -59,5 +61,13 @@ public class Tarea{
     public int idPropietario{
         get { return IdPropietario;}
         set { IdPropietario = value;}
+    }
+    public string NombreTablero{
+        get { return nombreTablero;}
+        set { nombreTablero = value;}
+    }
+     public string nombreAsignado{
+        get { return NombreAsignado;}
+        set { NombreAsignado = value;}
     }
 }

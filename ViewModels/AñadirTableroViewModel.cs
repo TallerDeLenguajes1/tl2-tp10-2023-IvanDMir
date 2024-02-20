@@ -15,6 +15,7 @@ public class ABViewModel {
      [Required(ErrorMessage = "Este campo es requerido.")]
     [Display(Name = "Id usuario Propietario")] 
     public int IdUsuarioPropietario { get; set; }
+    public string Error{get;set;}
 
     public ABViewModel() {}
     public ABViewModel(int IdPropietario){
