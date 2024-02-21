@@ -10,11 +10,33 @@
         <label for="usuario" class="form-label">Nuevo nombre de usuario</label>
         <input asp-for="@Model.Nombre" class="form-control" id="usuario" required>
         <span asp-validation-for="@Model.Nombre" class="text-danger"></span> 
+        @if(!string.IsNullOrEmpty(Model.Error)) {
+                <p class="text-danger text-center">@Model.Error</p>
+            }
+    </div>
+    <div class="mb-3">
+        <label for="ViejaPass" class="form-label">Ingrese su anterior contraseña</label>
+        <input type="password" asp-for="@Model.ContrasenaVieja" class="form-control" id="ViejaPass" required>
+        <span asp-validation-for="@Model.Contrasena" class="text-danger"></span> 
+        @if(!string.IsNullOrEmpty(Model.ErrorContraseñaVieja)) {
+                <p class="text-danger text-center">@Model.ErrorContraseñaVieja</p>
+            }
     </div>
     <div class="mb-3">
         <label for="nuevapassword" class="form-label">Nueva contraseña</label>
         <input type="password" asp-for="@Model.Contrasena" class="form-control" id="nuevapassword" required>
         <span asp-validation-for="@Model.Contrasena" class="text-danger"></span> 
+       @if(!string.IsNullOrEmpty(Model.ErrorContraseñaIguales)) {
+                <p class="text-danger text-center">@Model.ErrorContraseñaIguales</p>
+            }
+    </div>
+    <div class="mb-3">
+        <label for="nuevapassword2" class="form-label">Nueva contraseña</label>
+        <input type="password" asp-for="@Model.ContrasenaDuplicada" class="form-control" id="nuevapassword2" required>
+        <span asp-validation-for="@Model.Contrasena" class="text-danger"></span> 
+        @if(!string.IsNullOrEmpty(Model.ErrorContraseñaIguales)) {
+                <p class="text-danger text-center">@Model.ErrorContraseñaIguales</p>
+            }
        
     </div>
     <button type="submit" class="btn btn-primary">Actualizar Usuario</button>

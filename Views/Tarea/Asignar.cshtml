@@ -5,17 +5,27 @@
 @using tl2_tp10_2023_IvanDMir.ViewModels;
 @model AsTVM;
 
-<form asp-controller="Tarea" asp-action="Asignar">
-    <input hidden asp-for = "@Model.Idtarea">
-    <div class="form-group">
-        <select asp-for="@Model.usuario" class="form-select">
-            <label asp-for="@Model.usuario">Usuario al Asignar la Tarea</label>
-                    @foreach(Usuario usuario in Model.UsuariosDisponibles) {
-                        <option value="@usuario.id_usuario">@usuario.nombre_De_Usuario</option>
-                    }  
-                </select>
-    </div>
-    <button type="submit" class="btn btn-primary">Asignar</button>
-</form>
+<div class="container">
+    <h2 class="mt-3">Asignar Tarea</h2>
+    <hr>
 
-@section Scripts{<partial name="_ValidationScriptsPartial"/>}
+    <form asp-controller="Tarea" asp-action="Asignar" method="post">
+        <input type="hidden" asp-for="@Model.Idtarea">
+        <div class="form-group">
+            <label for="usuario">Usuario al Asignar la Tarea</label>
+            <select id="usuario" name="usuario" class="form-control">
+                @foreach (Usuario usuario in Model.UsuariosDisponibles)
+                {
+                    <option value="@usuario.id_usuario">@usuario.nombre_De_Usuario</option>
+                }
+                <option value="0">Sin usuario asignado</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Asignar</button>
+    </form>
+</div>
+
+@section Scripts
+{
+    <partial name="_ValidationScriptsPartial"/>
+}

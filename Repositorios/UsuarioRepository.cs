@@ -87,18 +87,17 @@ public interface IUsuarioRepositorio {
          }
     }
     public void eliminar(int id){
-
-            SQLiteConnection connection = new SQLiteConnection(cadenaConexion);
-            SQLiteCommand command = connection.CreateCommand();
-            command.CommandText = $"DELETE FROM usuario WHERE id = @Id;";
+            string textoQuery = @"DELETE FROM usuario WHERE id = @Id;";
+           using ( SQLiteConnection connection = new SQLiteConnection(cadenaConexion)){
             connection.Open();
             using (SQLiteCommand comando = new SQLiteCommand("PRAGMA  foreign_keys=1;",connection)){
                         comando.ExecuteNonQuery();
                 }
-      
-            command.Parameters.Add(new SQLiteParameter("@Id",id));
-            command.ExecuteNonQuery();
+            SQLiteCommand query = new SQLiteCommand (textoQuery,connection);
+            query.Parameters.Add(new SQLiteParameter("@Id",id));
+            query.ExecuteNonQuery();
             connection.Close();
+      }
     }
 
       public Usuario GetById(int id_usuario)

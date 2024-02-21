@@ -7,6 +7,8 @@ public class UBViewModel {
     [Required(ErrorMessage = "Este campo es requerido.")]
     [Display(Name = "Nombre de Tablero")] 
     public string Nombre { get; set; }
+    [Required(ErrorMessage = "Este campo es requerido.")]
+    [Display(Name = "Descripcion de tablero")] 
     public string Descripcion { get; set; }
     public int IdUsuarioPropietario{get;set;}
     public UBViewModel(){

@@ -14,10 +14,12 @@ public class UTViewModel {
 
     public bool  Dueño {get;set;}
 
+    public string rol {get;set;}
+
     public UTViewModel(){
 
     }
-    public UTViewModel(Tarea tarea,bool dueño) {
+    public UTViewModel(Tarea tarea,bool dueño,string Rol) {
         Id = tarea.Id;
         Nombre = tarea.Nombre;
         Estado = tarea.Estado;
@@ -25,5 +27,6 @@ public class UTViewModel {
         Color = tarea.Color;
         IdTablero = tarea.IdTablero;
         Dueño = dueño;
+        rol = Rol;
     }
 }

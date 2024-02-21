@@ -10,7 +10,12 @@ public class UUViewModel {
     [Required(ErrorMessage = "Elija una contraseña valida.")]
      [StringLength(30, MinimumLength = 8, ErrorMessage = "La contraseña debe tener entre 8 y 30 caracteres.")]
     public string Contrasena { get; set; }
+     public string ContrasenaDuplicada { get; set; }
+     public string ContrasenaVieja{get;set;}
     public Roles Rol {get;set;}
+    public string Error {get;set;}
+     public string ErrorContraseñaIguales{get;set;}
+    public string ErrorContraseñaVieja{get;set;}
 
     public UUViewModel(){
 

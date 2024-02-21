@@ -1,37 +1,65 @@
-@{ 
+@{
     ViewData["Title"] = "Actualizar tarea";
 }
 
 @using tl2_tp10_2023_IvanDMir.ViewModels;
 @model UTViewModel
 
-<form asp-controller="Tarea" asp-action="Update" class="p-4 rounded shadow-lg bg-light">
-    <input hidden asp-for="@Model.Id">
-    <input hidden asp-for="@Model.Dueño">
-    <input hidden asp-for="@Model.IdTablero">
-    <div class="form-group">
-        <label for="NombreTarea" class="fw-bold">Nuevo nombre de la tarea</label>
-        <input asp-for="@Model.Nombre" class="form-control" id="NombreTarea" required>
-        <span asp-validation-for="@Model.Nombre" class="text-danger"></span> 
-    </div>
-    <div class="form-group">
-        <label for="Estado" class="fw-bold">Nuevo estado de la tarea</label>
-        <select asp-for="@Model.Estado" class="form-select" id="Estado">
-            <option value="Pendiente">Pendiente</option>
-            <option value="Haciendo">Haciendo</option>
-            <option value="Revisión">Revisión</option>
-            <option value="Finalizada">Finalizada</option>
-        </select>
-    </div>
-    <div class="form-group">
-        <label for="DescTarea" class="fw-bold">Nueva descripción de la tarea</label>
-        <input asp-for="@Model.Descripcion" class="form-control" id="DescTarea" required>
-        <span asp-validation-for="@Model.Descripcion" class="text-danger"></span> 
-    </div>
-    <div class="form-group">
-        <label for="Color" class="fw-bold">Nuevo color de la tarea</label>
-        <input asp-for="@Model.Color" class="form-control" id="Color" required>
-        <span asp-validation-for="@Model.Color" class="text-danger"></span> 
-    </div>
-    <button type="submit" class="btn btn-primary">Actualizar</button>
-</form>
+@if (Model.rol == "admin")
+{
+    <form asp-controller="Tarea" asp-action="Update" class="p-4 rounded shadow-lg bg-light">
+        <input hidden asp-for="@Model.Id">
+        <input hidden asp-for="@Model.Dueño">
+        <input hidden asp-for="@Model.IdTablero">
+        <div class="form-group">
+            <label for="NombreTarea" class="fw-bold">Nuevo nombre de la tarea</label>
+            <input asp-for="@Model.Nombre" class="form-control" id="NombreTarea" required>
+            <span asp-validation-for="@Model.Nombre" class="text-danger"></span> 
+        </div>
+        <div class="form-group">
+            <label for="Estado" class="fw-bold">Nuevo estado de la tarea</label>
+            <select asp-for="@Model.Estado" class="form-select" id="Estado">
+                <option value="Pendiente">Pendiente</option>
+                <option value="Haciendo">Haciendo</option>
+                <option value="Revisión">Revisión</option>
+                <option value="Finalizada">Finalizada</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="DescTarea" class="fw-bold">Nueva descripción de la tarea</label>
+            <input asp-for="@Model.Descripcion" class="form-control" id="DescTarea" required>
+            <span asp-validation-for="@Model.Descripcion" class="text-danger"></span> 
+        </div>
+        <div class="form-group">
+            <label for="color">Color</label>
+            <select asp-for="@Model.Color" class="form-select custom-select" id="color">
+                <option value="Principal" style="background-color: #dc3545;">Principal</option>
+                <option value="Necesaria" style="background-color: #ffc107;">Necesaria</option>
+                <option value="Opcional" style="background-color: #17a2b8;">Opcional</option>
+                <option value="Doble recompensa" style="background-color: #28a745;">Doble recompensa</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Actualizar</button>
+    </form>
+}
+else
+{
+    <form asp-controller="Tarea" asp-action="Update" class="p-4 rounded shadow-lg bg-light">
+        <input hidden asp-for="@Model.Id">
+        <input hidden asp-for="@Model.Dueño">
+        <input hidden asp-for="@Model.IdTablero">
+        <input hidden asp-for="@Model.Nombre">
+        <input hidden asp-for="@Model.Descripcion">
+        <input hidden asp-for="@Model.Color">
+        <div class="form-group">
+            <label for="Estado" class="fw-bold">Nuevo estado de la tarea</label>
+            <select asp-for="@Model.Estado" class="form-select" id="Estado">
+                <option value="Pendiente">Pendiente</option>
+                <option value="Haciendo">Haciendo</option>
+                <option value="Revisión">Revisión</option>
+                <option value="Finalizada">Finalizada</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Actualizar</button>
+    </form>
+}

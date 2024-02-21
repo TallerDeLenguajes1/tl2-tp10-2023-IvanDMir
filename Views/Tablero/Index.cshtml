@@ -17,9 +17,9 @@
             <th colspan="4" class="text-center">TABLEROS PROPIOS</th>
             <tr>
                 <th scope="col">Nombre</th>
-                <th scope="col">Descripcion</th>
-                <th scope="col">nombre del Propietario</th>
-                <th scope="col">Opcion</th>
+                <th scope="col">Descripción</th>
+                <th scope="col">Nombre del Propietario</th>
+                <th scope="col">Opción</th>
             </tr>
             @foreach(Tablero tablero in Model.TablerosAsignados) {
                 <tr>
@@ -30,8 +30,8 @@
                         <button class="btn btn-success">
                             <a asp-controller="Tablero" asp-action="Update" asp-route-id="@tablero.IdTablero" class="badge badge-primary">Actualizar</a>
                         </button>
-                        <button class="btn btn-danger">
-                            <a asp-controller="Tablero" asp-action="Delete" asp-route-id="@tablero.IdTablero" class="badge badge-primary">Borrar</a>
+                        <button class="btn btn-danger" onclick="confirmarBorrado('@tablero.IdTablero', '@tablero.Nombre')">
+                            Borrar
                         </button>
                     </td>
                 </tr>
@@ -41,9 +41,9 @@
             <th colspan="4" class="text-center">TABLEROS DE TAREAS ASIGNADOS</th>
             <tr>
                 <th scope="col">Nombre</th>
-                <th scope="col">Descripcion</th>
-                <th scope="col">nombre del Propietario</th>
-                <th scope="col">Opcion</th>
+                <th scope="col">Descripción</th>
+                <th scope="col">Nombre del Propietario</th>
+                <th scope="col">Opción</th>
             </tr>
             @foreach(Tablero tablero in Model.TablerosConTareas) {
                 <tr>
@@ -54,8 +54,8 @@
                         <button class="btn btn-success">
                             <a asp-controller="Tablero" asp-action="Update" asp-route-id="@tablero.IdTablero" class="badge badge-primary">Actualizar</a>
                         </button>
-                        <button class="btn btn-danger">
-                            <a asp-controller="Tablero" asp-action="Delete" asp-route-id="@tablero.IdTablero" class="badge badge-primary">Borrar</a>
+                        <button class="btn btn-danger" onclick="confirmarBorrado('@tablero.IdTablero', '@tablero.Nombre')">
+                            Borrar
                         </button>
                     </td>
                 </tr>
@@ -65,9 +65,9 @@
             <th colspan="4" class="text-center">TODOS LOS TABLEROS</th>
             <tr>
                 <th scope="col">Nombre</th>
-                <th scope="col">Descripcion</th>
-                <th scope="col">nombre del Propietario</th>
-                <th scope="col">Opcion</th>
+                <th scope="col">Descripción</th>
+                <th scope="col">Nombre del Propietario</th>
+                <th scope="col">Opción</th>
             </tr>
             @foreach(Tablero tablero in Model.TodosLosTableros) {
                 <tr>
@@ -78,8 +78,8 @@
                         <button class="btn btn-success">
                             <a asp-controller="Tablero" asp-action="Update" asp-route-id="@tablero.IdTablero" class="badge badge-primary">Actualizar</a>
                         </button>
-                        <button class="btn btn-danger">
-                            <a asp-controller="Tablero" asp-action="Delete" asp-route-id="@tablero.IdTablero" class="badge badge-primary">Borrar</a>
+                        <button class="btn btn-danger" onclick="confirmarBorrado('@tablero.IdTablero', '@tablero.Nombre')">
+                            Borrar
                         </button>
                     </td>
                 </tr>
@@ -87,3 +87,11 @@
         }
     </tbody>
 </table>
+
+<script>
+    function confirmarBorrado(tableroId, tableroNombre) {
+        if (confirm("¿Estás seguro de que deseas borrar el tablero '" + tableroNombre + "'?")) {
+            window.location.href = '/Tablero/Delete?id=' + tableroId;
+        }
+    }
+</script>

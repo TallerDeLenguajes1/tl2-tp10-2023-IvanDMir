@@ -43,11 +43,13 @@ public class LoginController : Controller
         }
     }
       [HttpGet]
-    public IActionResult Desloguear(int idUsuario) {
+    public IActionResult Desloguear() {
         try {
+             if(!isLogin()) return RedirectToRoute(new { controller = "Login", action = "Index"});
+             var idUsuario = Convert.ToInt32(HttpContext.Session.GetString("Id"));
             var usuarioActual = repo.GetById(idUsuario);
             DesloguearUsuario();
-            _logger.LogInformation("User " + usuarioActual.nombre_De_Usuario + " unlogged successfully");
+            _logger.LogInformation("usuario " + usuarioActual.nombre_De_Usuario + " Deslogueado");
             return RedirectToAction("Index");
         } catch (Exception e) {
             _logger.LogError(e.ToString());
@@ -66,10 +68,18 @@ public class LoginController : Controller
     } 
      private void DesloguearUsuario() {
         HttpContext.Session.SetString("Id", string.Empty);
-        HttpContext.Session.SetString("User", string.Empty);
-        HttpContext.Session.SetString("Password", string.Empty);
-        HttpContext.Session.SetString("Role", string.Empty);
+        HttpContext.Session.SetString("Usuario", string.Empty);
+        HttpContext.Session.SetString("Contraseña", string.Empty);
+        HttpContext.Session.SetString("Rol", string.Empty);
     }  
+          private bool isLogin()
+    {
+        if (string.IsNullOrEmpty(HttpContext.Session.GetString("Rol"))){
+            return false;
+        }else{
+            return true;
+        }
+    }
    
 }
     

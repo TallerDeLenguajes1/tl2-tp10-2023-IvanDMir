@@ -60,8 +60,9 @@ public class TareaController : Controller
             
        }catch(Exception ex){
         _logger.LogError(ex.ToString());
-        return BadRequest();
+         return BadRequest();
        }
+       
     }
 
     [HttpPost]
@@ -75,7 +76,8 @@ public class TareaController : Controller
             Color = tarea.Color,
             IdTablero = tarea.IdTablero,
             idPropietario = Convert.ToInt32(HttpContext.Session.GetString("Id")),
-            IdUsuarioAsignado = 0
+            IdUsuarioAsignado = 0,
+            NombreTablero = tablerorepo.GetById(tarea.IdTablero).Nombre
         };
         repo.Crear(nuevaTarea);
         
@@ -93,10 +95,11 @@ public class TareaController : Controller
             var TablerosDelUsuario = tablerorepo.GetByUser(IdUsuarioLogueado);
             foreach(Tablero tablero in TablerosDelUsuario){
                 if(tablero.IdTablero == tarea.IdTablero){
-                    return View(new UTViewModel(tarea,true));
+                    var VM =new UTViewModel(tarea,true,HttpContext.Session.GetString("Rol"));
+                    return View(VM);
                 }
             }
-            return View(new UTViewModel(tarea,false));
+            return View(new UTViewModel(tarea,false,HttpContext.Session.GetString("Rol")));
         }catch(Exception ex){
              _logger.LogError(ex.ToString());
              return BadRequest();
@@ -115,7 +118,9 @@ public class TareaController : Controller
             Color = tarea.Color,
             IdTablero = tarea.IdTablero,
             idPropietario = Convert.ToInt32(HttpContext.Session.GetString("Id")),
-            IdUsuarioAsignado = tareaVieja.IdUsuarioAsignado
+            IdUsuarioAsignado = tareaVieja.IdUsuarioAsignado,
+            NombreTablero = tablerorepo.GetById(tarea.IdTablero).Nombre
+
             
         };
         repo.Update(tarea.Id, nuevaTarea);
@@ -128,7 +133,6 @@ public class TareaController : Controller
     [HttpGet]
     public IActionResult Asignar(int TareaId) {
         if (!isLogin()) return RedirectToRoute(new { controller = "Login", action = "Index"});
-        if (!esAdmin()) return RedirectToAction("Index");
         return View(new AsTVM(TareaId,usuarioRepo.GetAll())); 
     }       
 
@@ -153,12 +157,12 @@ public class TareaController : Controller
         repo.Delete(id);
         return RedirectToAction("Index");
     }
-       private bool isLogin()
+         private bool isLogin()
     {
-        if (HttpContext.Session.GetString("Rol") != null ){
-            return true;
-        }else{
+        if (string.IsNullOrEmpty(HttpContext.Session.GetString("Rol"))){
             return false;
+        }else{
+            return true;
         }
     }
 

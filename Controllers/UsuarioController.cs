@@ -44,7 +44,7 @@ public class UsuarioController : Controller
     [HttpPost]
     public IActionResult Add(AUViewModel usuario) {
         try{ 
-        if(!esAdmin()) return RedirectToAction("Index");
+       if(!esAdmin()) return RedirectToAction("Index");
         if(!ModelState.IsValid) return View(usuario);
         var Nuevo = new Usuario() {
             nombre_De_Usuario = usuario.Nombre,
@@ -84,12 +84,24 @@ public class UsuarioController : Controller
             contrasena = usuarioNuevo.Contrasena,
             rol = usuarioNuevo.Rol,
         };
-    
+        if (usuarioNuevo.Contrasena != usuarioNuevo.ContrasenaDuplicada){
+            usuarioNuevo.ErrorContraseñaIguales = "las contraseñas no coinciden";
+            return View(usuarioNuevo);
+        }
+        if (usuarioNuevo.ContrasenaVieja != repo.GetById(usuarioNuevo.Id).contrasena){
+            usuarioNuevo.ErrorContraseñaVieja = "Contraseña previa incorrecta";
+            return View(usuarioNuevo);
+        }
+
+        if (YaExiste(Nuevo,repo.GetById(usuarioNuevo.Id))){
+            throw new Exception("nombre de usuario ya ocupado");   
+        }
         repo.Modificar(Nuevo.id_usuario, Nuevo);
         return RedirectToAction("Index");
         }catch(Exception ex){
+             usuarioNuevo.Error = "No se puede actualizar el nombre. Usuario ya existente";
             _logger.LogError(ex.ToString());
-            return BadRequest();
+            return View(usuarioNuevo);
         }
     }
    [HttpGet]
@@ -98,6 +110,9 @@ public class UsuarioController : Controller
         if(!esAdmin()) return RedirectToAction("Index");
         if(!ModelState.IsValid) return RedirectToAction("Index");
         repo.eliminar(id);
+        if(id == Convert.ToInt32(HttpContext.Session.GetString("Id") )){
+            return RedirectToRoute(new { controller = "Login", action = "Desloguear"});;
+        }
         return RedirectToAction("Index");
     }catch(Exception ex){
             _logger.LogError(ex.ToString());
@@ -105,14 +120,15 @@ public class UsuarioController : Controller
         }
     }
 
-     private bool isLogin()
+      private bool isLogin()
     {
-        if (HttpContext.Session != null ){
-            return true;
-        }else{
+        if (string.IsNullOrEmpty(HttpContext.Session.GetString("Rol"))){
             return false;
+        }else{
+            return true;
         }
     }
+
 
     private bool esAdmin(){
          if (HttpContext.Session.GetString("Rol") == Enum.GetName(Roles.admin)){
@@ -121,6 +137,8 @@ public class UsuarioController : Controller
          return false;
         
     }
+
+    private bool YaExiste(Usuario usuarionuevo, Usuario usuario) => usuarionuevo.nombre_De_Usuario != usuario.nombre_De_Usuario && repo.YaExiste(usuarionuevo);
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error() {
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });

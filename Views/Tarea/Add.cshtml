@@ -25,9 +25,15 @@
         <span asp-validation-for="@Model.Descripcion" class="text-danger"></span> 
     </div>
     <div class="form-group">
-        <label for="Color" class="fw-bold">Color de tarea</label>
-        <input asp-for="@Model.Color" class="form-control" id="Color" required>
-        <span asp-validation-for="@Model.Color" class="text-danger"></span> 
+        <label for="color">Color</label>
+        <select asp-for="@Model.Color" class="form-select custom-select" id="color">
+            <option value="Principal" style="background-color: #dc3545;">Principal</option>
+            <option value="Necesaria" style="background-color: #ffc107;">Necesaria</option>
+            <option value="Opcional" style="background-color: #17a2b8;">Opcional</option>
+            <option value="Doble recompensa" style="background-color: #28a745;">Doble recompensa</option>
+        </select>
     </div>
     <button type="submit" class="btn btn-primary">Enviar</button>
 </form>
+
+@section Scripts{<partial name="_ValidationScriptsPartial"/>}

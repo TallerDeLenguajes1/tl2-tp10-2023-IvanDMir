@@ -1,5 +1,5 @@
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "ListaTareas";
 }
 
 @using tl2_tp10_2023_IvanDMir.ViewModels;
@@ -30,14 +30,14 @@
                     <td>@tareas.Id</td>
                     <td>@tareas.Nombre</td>
                     <td>@tareas.Descripcion</td>
-                    <td>@tareas.Color</td>
+                    <td onmouseover="this.style.backgroundColor = ObtenerColorFondo('@tareas.Color')">@tareas.Color</td>
                     <td>@Enum.GetName(tareas.Estado)</td>
                     <td>@tareas.NombreTablero</td>
-                     @if (tareas.IdUsuarioAsignado == 0) {
+                     @if (tareas.IdUsuarioAsignado == 0 || string.IsNullOrEmpty(tareas.nombreAsignado) ) {
                         <td> 
                             <p> Sin Asignar</p>
                         </td>
-                    }else {
+                    } else {
                         <td>@tareas.nombreAsignado</td>
                     }
                     <td>
@@ -47,9 +47,9 @@
                         <button class="btn btn-primary">
                             <a asp-controller="Tarea" asp-action="Asignar" asp-route-TareaId="@tareas.Id" class="badge badge-primary" style="background-color: #007bff;">Asignar</a>
                         </button>
-                            <button class="btn btn-danger">
-                                <a asp-controller="Tarea" asp-action="Delete" asp-route-id="@tareas.Id" class="badge badge-primary" style="background-color: #dc3545;">Borrar</a>
-                            </button>
+                           <button class="btn btn-danger" onclick="confirmarBorrado('@tareas.Id')">
+                            <span class="badge badge-primary" style="background-color: #dc3545;">Borrar</span>
+                        </button>
                     </td>
                 </tr>
             }
@@ -71,23 +71,23 @@
                     <td>@tareas.Id</td>
                     <td>@tareas.Nombre</td>
                     <td>@tareas.Descripcion</td>
-                    <td>@tareas.Color</td>
+                   <td onmouseover="this.style.backgroundColor = ObtenerColorFondo('@tareas.Color')">@tareas.Color</td>
                     <td>@Enum.GetName(tareas.Estado)</td>
                     <td>@tareas.NombreTablero</td>
-                    @if (tareas.IdUsuarioAsignado == 0) {
+                    @if (tareas.IdUsuarioAsignado == 0 || string.IsNullOrEmpty(tareas.nombreAsignado) ) {
                         <td> 
                             <p> Sin Asignar</p>
                         </td>
-                    }else {
+                    } else {
                         <td>@tareas.nombreAsignado</td>
                     }
                     <td>
                         <button class="btn btn-success">
                             <a asp-controller="Tarea" asp-action="Update" asp-route-id="@tareas.Id" class="badge badge-primary" style="background-color: #28a745;">Actualizar</a>
                         </button>
-                            <button class="btn btn-danger">
-                                <a asp-controller="Tarea" asp-action="Delete" asp-route-id="@tareas.Id" class="badge badge-primary" style="background-color: #dc3545;">Borrar</a>
-                            </button>
+                           <button class="btn btn-danger" onclick="confirmarBorrado('@tareas.Id')">
+                            <span class="badge badge-primary" style="background-color: #dc3545;">Borrar</span>
+                        </button>
                     </td>
                 </tr>
             }
@@ -109,23 +109,23 @@
                     <td>@tareas.Id</td>
                     <td>@tareas.Nombre</td>
                     <td>@tareas.Descripcion</td>
-                    <td>@tareas.Color</td>
+                    <td onmouseover="this.style.backgroundColor = ObtenerColorFondo('@tareas.Color')">@tareas.Color</td>
                     <td>@Enum.GetName(tareas.Estado)</td>
                     <td>@tareas.NombreTablero</td>
-                    @if (tareas.IdUsuarioAsignado == 0) {
+                    @if (tareas.IdUsuarioAsignado == 0 || string.IsNullOrEmpty(tareas.nombreAsignado) ) {
                         <td> 
                             <p> Sin Asignar</p>
                         </td>
-                    }else {
+                    } else {
                         <td>@tareas.nombreAsignado</td>
                     }
                     <td>
                         <button class="btn btn-success">
                             <a asp-controller="Tarea" asp-action="Update" asp-route-id="@tareas.Id" class="badge badge-primary" style="background-color: #28a745;">Actualizar</a>
                         </button>
-                            <button class="btn btn-danger">
-                                <a asp-controller="Tarea" asp-action="Delete" asp-route-id="@tareas.Id" class="badge badge-primary" style="background-color: #dc3545;">Borrar</a>
-                            </button>
+                        <button class="btn btn-danger" onclick="confirmarBorrado('@tareas.Id')">
+                            <span class="badge badge-primary" style="background-color: #dc3545;">Borrar</span>
+                        </button>
                         
                     </td>
                 </tr>
@@ -133,3 +133,30 @@
         }
     </tbody>
 </table>
+
+<script>
+    function confirmarBorrado(tareaId) {
+        if (confirm("¿Estás seguro de que deseas borrar esta tarea?")) {
+            window.location.href = '/Tarea/Delete?id=' + tareaId;
+        }
+    }
+
+    
+ function ObtenerColorFondo(color) {
+        switch(color) {
+            case 'Principal':
+                return '#dc3545';
+            case 'Necesaria':
+                return '#ffc107';
+            case 'Opcional':
+                return '#17a2b8';
+            case 'Doble recompensa':
+                return '#28a745';
+            default:
+                return ''; 
+        }
+    }
+
+</script>
+
+

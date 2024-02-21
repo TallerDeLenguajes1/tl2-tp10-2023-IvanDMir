@@ -23,11 +23,11 @@ public class TableroController : Controller
     public IActionResult Index() {
 
              try{
-                var IdUsuarioLogueado = Convert.ToInt32(HttpContext.Session.GetString("Id"));
+                
             if(!isLogin()){
                 return RedirectToRoute(new{controller = "Login", action = "Index"});
             }else if(esAdmin()){
-                
+                var IdUsuarioLogueado = Convert.ToInt32(HttpContext.Session.GetString("Id"));
                 GBViewModel viewTableros = new GBViewModel(repo.GetAll(),repo.GetByUser(IdUsuarioLogueado),repo.GetByTarea(IdUsuarioLogueado),IdUsuarioLogueado);
                 return View(viewTableros);
             }else{
@@ -137,14 +137,15 @@ public class TableroController : Controller
        
     }
 
-      private bool isLogin()
+       private bool isLogin()
     {
-        if (HttpContext.Session != null ){
-            return true;
-        }else{
+        if (string.IsNullOrEmpty(HttpContext.Session.GetString("Rol"))){
             return false;
+        }else{
+            return true;
         }
     }
+
 
        private bool esAdmin(){
         var rol =HttpContext.Session.GetString("Rol");

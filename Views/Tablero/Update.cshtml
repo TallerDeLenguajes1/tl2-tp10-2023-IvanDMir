@@ -18,6 +18,7 @@
         <div class="mb-3">
             <label for="Desc" class="form-label">Nueva descripción</label>
             <input asp-for="@Model.Descripcion" class="form-control" id="Desc">
+            <span asp-validation-for="@Model.Descripcion" class="text-danger"></span>
         </div>
         <button type="submit" class="btn btn-primary">Actualizar</button>
     </form>
